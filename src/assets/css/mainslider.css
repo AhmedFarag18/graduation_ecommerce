@@ -1,0 +1,35 @@
+/*=====================
+    start swipper 
+==========================*/
+.swiper-button-next,
+.swiper-button-prev {
+    visibility: hidden;
+    opacity: 0;
+    transform: scale(0);
+    transition: .4s ease;
+    color: #eee;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    font-size: 16px;
+}
+
+.swiper:hover .swiper-button-next,
+.swiper:hover .swiper-button-prev {
+    visibility: visible;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.swiper-button-next.swiper-button-disabled,
+.swiper-button-prev.swiper-button-disabled {
+    display: none;
+}
+
+.swiper-pagination-bullet {
+    width: 30px;
+    height: 4px;
+    border-radius: 5px;
+    background: #eee;
+}
