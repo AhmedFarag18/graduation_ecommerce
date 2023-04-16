@@ -4,18 +4,18 @@ import BestDeals from '../components/BestDeals';
 import DetailsProduct from '../components/DetailsProduct'
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
+import Recommended from '../components/Recommended';
 
 function Details() {
     const { productID } = useParams();
-
-    const searchText = window.location.search.slice(8);
+    const searchText = window.location.search.slice(8, 11);
 
     return (
         <div>
             <Navbar />
             <DetailsProduct productID={productID} />
             <div className='mt-14'>
-                <BestDeals title="Recommended" search={searchText} />
+                <Recommended title="Recommended" search={searchText} />
             </div>
             <Footer />
         </div>

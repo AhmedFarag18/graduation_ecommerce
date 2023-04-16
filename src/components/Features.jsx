@@ -34,13 +34,13 @@ function Features() {
     return (
         <div className='features'>
             <div className='container'>
-                <div className="features_items flex items-center py-16 flex-wrap xl:justify-center max-lg:justify-start gap-8">
+                <div className="features_items flex items-center py-16 flex-wrap xl:justify-center max-lg:justify-start gap-3">
                     {items.map(item => {
                         return (
-                            <div className='features-item flex items-center gap-3 p-3 max-lg:w-1/3 max-md:w-1/2 max-sm:w-full ' key={item.id}>
+                            <div className='features-item flex items-center gap-5 p-5 border border-gray-200 rounded' key={item.id}>
                                 <item.iconName className='text-2xl text-neutral-900' />
                                 <div>
-                                    <h6 className='max-md:text-sm text-base font-semibold capitalize text-indigo-500'>{item.title}</h6>
+                                    <h6 className='max-md:text-sm text-base font-semibold capitalize text-main-color'>{item.title}</h6>
                                     <p className='max-md:text-xs text-sm text-neutral-500'>{item.desc}</p>
                                 </div>
                             </div>

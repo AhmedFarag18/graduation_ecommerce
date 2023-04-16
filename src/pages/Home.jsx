@@ -6,24 +6,24 @@ import TopCategories from '../components/TopCategories';
 import BestDeals from '../components/BestDeals';
 import Features from '../components/Features';
 import Discount from '../components/Discount';
+import BestBrands from '../components/BestBrands';
+import HomeCardPayment from '../components/HomeCardPayment';
+import HelpServices from '../components/HelpServices';
 
 const Home = () => {
     let searchText = "phone"
-
-    useEffect(() => {
-        fetch("https://api.stripe.com/v1/products")
-            .then(response => response.json())
-            .then(data => console.log(data))
-    })
 
     return (
         <>
             <Navbar />
             <Slider />
             <Features />
+            <BestBrands />
             <TopCategories />
             <Discount />
             <BestDeals title="Best Deals" search={searchText} />
+            <HomeCardPayment />
+            <HelpServices />
             <Footer />
         </>
     );

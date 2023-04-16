@@ -3,19 +3,22 @@ import { Link, useParams } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import { BiLoaderAlt } from "react-icons/bi"
+import { API_URL } from '../App';
 
 function CategoryItem() {
-    let categoryName = window.location.pathname.slice(10);
+    let categoryName = window.location.search.slice(6).replace("%20", " ").replace("%27", "'");
+    const { categoryId } = useParams();
+
     const [categoryProducts, setCategoryProducts] = useState([]);
     const [spinner, setSpinner] = useState(false);
 
     useEffect(() => {
         setSpinner(true);
-        fetch(`https://dummyjson.com/products/category/${categoryName}`)
+        fetch(`${API_URL}/products?typeId=${categoryId}`)
             .then(res => res.json())
             .then(data => {
                 setSpinner(false);
-                setCategoryProducts(data.products);
+                setCategoryProducts(data.data);
             })
     }, [])
 
@@ -24,24 +27,24 @@ function CategoryItem() {
             <Navbar />
             <div className='container'>
                 <h1 className='text-base pt-10'>
-                    <Link to="/category">Category</Link>
+                    <Link to="/category" className='text-main-color'>Category</Link>
                     <span> / </span>
-                    <Link to={`/category/${categoryName}`} className='text-indigo-500'>{categoryName}</Link>
+                    <span>{categoryName}</span>
                 </h1>
-                <div className='py-10 flex flex-wrap'>
+                <div className='py-10 flex flex-wrap gap-3'>
                     {
                         spinner ?
-                            <button type="button" className="flex gap-5 w-full text-center p-20 text-indigo-500 justify-center items-center text-4xl" disabled>
+                            <button type="button" className="flex gap-5 w-full text-center p-20 text-main-color justify-center items-center text-4xl" disabled>
                                 <BiLoaderAlt className='animate-spin' />
                                 <span>Loading...</span>
                             </button>
                             :
                             categoryProducts.map(item => {
                                 return (
-                                    <div className="card_item w-1/3 p-6 flex flex-col rounded border hover:shadow-xl transition cursor-grab" key={item.id}>
-                                        <Link to={`/details/${item.id}?search=${item.brand}`} className="cursor-pointer">
-                                            <img src={item.thumbnail} alt={item.id} className="h-52 w-auto" />
-                                            <span className='block my-2 text-sm text-white rounded-md w-max py-1 px-2 bg-indigo-500'>{item.brand}</span>
+                                    <div className="category_item_products w-1/3 p-6 flex flex-col rounded border hover:shadow-xl transition cursor-grab" key={item.id}>
+                                        <Link to={`/details/${item.id}?search=${item.productBrand}`} className="cursor-pointer">
+                                            <img src={item.pictureUrl} alt={item.id} className="h-52 w-auto" />
+                                            <span className='block my-2 text-sm text-white rounded-md w-max py-1 px-2 bg-main-color'>{item.productBrand}</span>
                                             <h4 className="card_item-name font-medium text-xl my-1">{item.title}</h4>
                                             <p className='card_item-desc text-sm my-2'>{item.description}</p>
                                         </Link>
@@ -50,8 +53,7 @@ function CategoryItem() {
                                             <span className='text-sm'> USD</span>
                                         </div>
                                         <div className='flex gap-2'>
-                                            <Link to="" className='rounded-md px-5 p-2 bg-indigo-600 mt-4 text-white text-sm capitalize text-center'>Add to cart </Link>
-                                        </div>
+                                            <Link to={`/details/${item.id}?search=${item.productType.replace(" ", '')}`} className='cursor-pointer rounded-md px-5 p-2 bg-main-color mt-4 text-white text-sm capitalize text-center'>View Details</Link>                                        </div>
                                     </div>
                                 )
                             })

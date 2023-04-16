@@ -1,20 +1,20 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { API_URL } from '../App'
 import CategorySideItem from '../components/CategorySideItem'
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
 
 function Category() {
 
-    const CategoryItems = [
-        { id: 1, name: "Smartphones", color: "bg-red-200" },
-        { id: 2, name: "mens-shirts", color: "bg-green-200" },
-        { id: 3, name: "Laptops", color: "bg-blue-200" },
-        { id: 4, name: "Lighting", color: "bg-indigo-200" },
-        { id: 5, name: "Tops", color: "bg-yellow-200" },
-        { id: 6, name: "Kitchen", color: "bg-orange-200" },
-        { id: 7, name: "Furniture", color: "bg-slate-200" },
-    ]
+    const [category, setCategory] = useState([]);
+    useEffect(() => {
+        fetch(`${API_URL}/Products/types`)
+            .then((res) => res.json())
+            .then((data) => {
+                setCategory(data);
+            })
+    }, [])
 
     return (
         <>
@@ -26,15 +26,17 @@ function Category() {
                             <CategorySideItem name="Smartphones" brands={["Samsung"]} />
                             <CategorySideItem name="Tops" brands={["Samsung", "Hawawi", "Apple"]} />
                             <CategorySideItem name="Laptop's" brands={["Hp", "Dell", "Asus", "Inspiron", "Lenovo"]} />
-                            <CategorySideItem name="Mens-shirts" brands={["Samsung", "Toshipa", "Lenovo"]} />
+                            <CategorySideItem name="Mobiles" brands={["Samsung", "Hawawi", "Lenovo"]} />
                             <CategorySideItem name="Clothes" brands={["Z&H", "Fire Wood", "Sutra"]} />
                         </div>
-                        <div className="category_page_item grid w-8/12 gap-5 bg-gray-50 p-5 rounded">
+                        <div className="category_page_item flex flex-wrap w-8/12 gap-5 p-5 rounded">
                             {
-                                CategoryItems.map(item => {
+                                category.map(item => {
                                     return (
-                                        <Link to={`/category/${item.name.toLowerCase()}`} key={item.id} className={`image-item p-2 text-2xl ${item.color} cursor-pointer`}>
-                                            {item.name}
+                                        <Link to={`/category/${item.id}?name=${item.name}`} key={item.id}
+                                            className={`image-item p-2 text-2xl hover:bg-gray-100 hover:text-main-color transition duration-300 hover:shadow cursor-pointer`}>
+                                            {/* <span>{item.name}</span> */}
+                                            <img src={item.pictureUrl} />
                                         </Link>
                                     )
                                 })

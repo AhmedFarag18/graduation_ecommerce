@@ -1,24 +1,43 @@
-import { category } from "../test";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { useEffect, useState } from "react";
+import { API_URL } from "../App";
+import { Link } from "react-router-dom";
+import { BsBoxArrowUpRight } from "react-icons/bs";
 
 function TopCategories() {
+
+    const [category, setCategory] = useState([]);
+
+    useEffect(() => {
+        fetch(`${API_URL}/Products/types`)
+            .then(response => response.json())
+            .then(types => {
+                setCategory(types)
+            });
+    }, [])
 
     return (
         <section className='category py-10'>
             <div className='container'>
-                <h3 className='text-3xl font-semibold text-neutral-900 py-3'>Top Categories</h3>
+                <div className="flex items-center justify-between py-3">
+                    <h3 className='text-3xl font-semibold text-neutral-900 '>Top Categories</h3>
+                    <Link to="/category" className="hover:text-main-color transition duration-300">All Categories <BsBoxArrowUpRight className="inline-block mx-1" /> </Link>
+                </div>
                 <div className="category_items flex">
-                    {category.map((item) => {
-                        return (
-                            <div className="category_item" key={item.id}>
-                                <div className="flex flex-col py-5 justify-center items-center hover:shadow-md rounded transition cursor-pointer" key={item.id}>
-                                    <img src={item.img} alt={item.id} className="h-auto w-3/4" />
-                                    {/* <h5 className="category_item-name">{item.name}</h5> */}
-                                </div>
-                            </div>
-                        )
-                    })}
+                    {
+                        category ? category.slice(4, 12).map((item) => {
+                            return (
+                                <Link to={`/category/${item.id}?name=${item.name}`} className="category_item" key={item.id}>
+                                    <div className="flex flex-col py-5 justify-center items-center hover:shadow-md rounded transition cursor-pointer" key={item.id}>
+                                        <img src={item.pictureUrl} alt={item.id} className="h-auto w-3/4" />
+                                        {/* <h5 className="category_item-name">{item.name}</h5> */}
+                                    </div>
+                                </Link>
+                            )
+                        })
+                            :
+                            (`<h1 className='text-2xl bg-red-300'>Loading from DB</h1>`)
+                    }
                 </div>
             </div>
         </section>

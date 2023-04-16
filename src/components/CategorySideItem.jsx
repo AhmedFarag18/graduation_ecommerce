@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { RiArrowDownSLine } from 'react-icons/ri'
+import { Link } from 'react-router-dom';
 
 function CategorySideItem(props) {
     const [toggle, setToggle] = useState(true);
@@ -16,9 +17,9 @@ function CategorySideItem(props) {
                         {props.brands.map((item, idx) => {
                             return (
                                 <li key={idx}>
-                                    <a href="#" className="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded pl-11 group hover:bg-gray-100">
+                                    <Link to={`/brand/${idx + 1}?name-${item}`} className="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded pl-11 group hover:bg-gray-100">
                                         {item}
-                                    </a>
+                                    </Link>
                                 </li>)
                         })}
                     </ul>

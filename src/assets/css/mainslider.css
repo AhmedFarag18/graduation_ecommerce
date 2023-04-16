@@ -33,3 +33,11 @@
     border-radius: 5px;
     background: #eee;
 }
+
+.cards_items .swiper-pagination-bullet,
+.cards_items .swiper-scrollbar {
+    display: none !important;
+    /* background-color: red;
+    z-index: 333; */
+    overflow: hidden !important;
+}
