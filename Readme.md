@@ -6,6 +6,7 @@
 
 - [Overview](#overview)
   - [Built With](#built-with)
+  - [Use it after download](#use-it-after-download)
   - [Welcome](#Welcome)
 - [Contact](#contact)
 
@@ -31,6 +32,13 @@ Thanks for checking out my code of graduation Ecommerce website.
   - redux (redux-toolkit)
   - API's
   - Media Query
+
+### Use it after Download
+
+- open project in vs code or any code editor
+- write <span style="color:white;background-color:#222;padding:5px ;width: fit-content;displey:inline-block">npm install</span> in terminal in project directory
+- run npm run dev to run the project
+- open http://localhost:3000 and see result
 - Back End <b>[Contact to me if need it. it's for another programmer]</b>
   - Asp.net Api
   - Sql server DB
