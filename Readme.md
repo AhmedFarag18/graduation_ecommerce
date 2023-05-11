@@ -13,7 +13,7 @@
 
 ## Overview
 
-![Design preview for the Ecommerce website](./preview.png)
+![Design preview for the Ecommerce website](./preview_v2.png)
 
 ## Welcome! 👋
 
