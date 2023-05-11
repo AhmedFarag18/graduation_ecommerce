@@ -1,30 +1,22 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
-import { FaOpencart } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 import { AiOutlineMenu } from "react-icons/ai";
 import { FiSearch } from 'react-icons/fi';
 import { RiShoppingCartLine } from 'react-icons/ri';
 import { useSelector } from 'react-redux';
 import logo from "../assets/logo-white.png"
+import NavbarSearchHook from '../redux/NavbarSearchHook';
 
 function MainNav() {
-    const navigate = useNavigate();
-    const [searchInput, setSearchInput] = useState("");
-    const [isOpen, toggleSidebar] = React.useState(true);
+    const [isOpen, toggleSidebar] = useState(true);
     const cart = useSelector(state => state.cart);
     const cartItmes = useSelector(state => state.cart);
+    const [onChangeSearch, searchWord, currentPage, totalPages, count, setCount, handlePageChange, pageSize, onChangeProduct, setBrandId, brandId] = NavbarSearchHook();
 
     const totalPrice = cartItmes.reduce((acc, product) => {
         acc += product.price * product.quantity;
         return acc;
     }, 0);
-
-
-    const searchInputHandeler = (e) => {
-        navigate("/products");
-        console.log(e.target.value);
-        setSearchInput(e.target.value);
-    }
 
     return (
         <>
@@ -46,7 +38,7 @@ function MainNav() {
                             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                 <FiSearch className='text-neutral-500 text-xl' />
                             </div>
-                            <input type="text" value={searchInput} onChange={searchInputHandeler} id="search-navbar" className="block w-full p-3 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Search..." />
+                            <input type="text" value={searchWord} onChange={onChangeSearch} id="search-navbar" className="block w-full p-3 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Search..." />
                         </div>
                         <div className='max-sm:w-full md:justify-end'>
                             <Link to="/cart" className='flex flex-row gap-3'>

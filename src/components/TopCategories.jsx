@@ -25,12 +25,12 @@ function TopCategories() {
                 </div>
                 <div className="category_items flex">
                     {
-                        category ? category.slice(4, 12).map((item) => {
+                        category ? category.slice(0, 8).map((item) => {
                             return (
                                 <Link to={`/category/${item.id}?name=${item.name}`} className="category_item" key={item.id}>
                                     <div className="flex flex-col py-5 justify-center items-center hover:shadow-md rounded transition cursor-pointer" key={item.id}>
                                         <img src={item.pictureUrl} alt={item.id} className="h-auto w-3/4" />
-                                        {/* <h5 className="category_item-name">{item.name}</h5> */}
+                                        <h5 className="category_item-name">{item.name}</h5>
                                     </div>
                                 </Link>
                             )

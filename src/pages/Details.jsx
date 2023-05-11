@@ -8,15 +8,18 @@ import Recommended from '../components/Recommended';
 
 function Details() {
     const { productID } = useParams();
-    const searchText = window.location.search.slice(8, 11);
+    const searchText = window.location.search.slice(8, 10);
 
     return (
         <div>
             <Navbar />
             <DetailsProduct productID={productID} />
-            <div className='mt-14'>
-                <Recommended title="Recommended" search={searchText} />
-            </div>
+            {
+                searchText ?
+                    <div className='mt-14'>
+                        <Recommended title="Recommended" search={searchText} />
+                    </div> : <div></div>
+            }
             <Footer />
         </div>
     )

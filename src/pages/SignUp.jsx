@@ -33,7 +33,7 @@ function SignUp() {
     }
 
     if (redirectPage) {
-        return navigate("/");
+        return navigate("/login");
     } else {
         return (
             <>

@@ -23,6 +23,13 @@ import { PrivateRoute } from '../Auth/PrivateRoute'
 import EditProduct from '../Dashboard/Product/EditProduct'
 import CheckoutPage from '../pages/CheckoutPage'
 import BrandItem from '../pages/BrandItem'
+import EditBrand from '../Dashboard/Brand/EditBrand'
+import ShowAllBrands from '../Dashboard/Brand/ShowAllBrands'
+import EditType from '../Dashboard/Type/EditType'
+import DeleteType from '../Dashboard/Type/DeleteType'
+import ShowAllTypes from '../Dashboard/Type/ShowAllTypes'
+import DeleteProduct from '../Dashboard/Product/DeleteProduct'
+import DeleteBrand from '../Dashboard/Brand/DeleteBrand'
 
 function Router() {
   return (
@@ -38,23 +45,34 @@ function Router() {
         <Route path="/forgetpassword" element={<ForgetPassword />} />
 
 
-        <Route element={<PrivateRoute />}>
-          <Route path="/category" element={<Category />} />
-          <Route path='/category/:categoryId' element={<CategoryItem />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/details/:productID" element={<Details />} />
-          <Route path="/brand" element={<Brand />} />
-          <Route path="/brand/:brandId" element={<BrandItem />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/category" element={<Category />} />
+        <Route path='/category/:categoryId' element={<CategoryItem />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/brand" element={<Brand />} />
+        <Route path="/brand/:brandId" element={<BrandItem />} />
+        <Route path="/contact" element={<Contact />} />
 
+        <Route element={<PrivateRoute />}>
+          <Route path="/details/:productID" element={<Details />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
           <Route path='/dashboard' element={<AdminDashboard />} />
           <Route path='/dashboard/getproducts' element={<GetProducts />} />
+          <Route path='/dashboard/allbrands' element={<ShowAllBrands />} />
+          <Route path='/dashboard/alltypes' element={<ShowAllTypes />} />
+
           <Route path='/dashboard/addproduct' element={<AddProduct />} />
           <Route path='/dashboard/editproduct/:productId' element={<EditProduct />} />
+          <Route path='/dashboard/deleteproduct/:productId' element={<DeleteProduct />} />
+
           <Route path='/dashboard/addbrand' element={<AddBrand />} />
+          <Route path='/dashboard/editbrand/:brandId' element={<EditBrand />} />
+          <Route path='/dashboard/deletebrand/:brandId' element={<DeleteBrand />} />
+
           <Route path='/dashboard/addtype' element={<AddType />} />
-          <Route path='/dashboard/adduser' element={<AddUser />} />
+          <Route path='/dashboard/edittype/:typeId' element={<EditType />} />
+          <Route path='/dashboard/deleteType/:typeId' element={<DeleteType />} />
+
+          {/* <Route path='/dashboard/adduser' element={<AddUser />} /> */}
         </Route>
 
 

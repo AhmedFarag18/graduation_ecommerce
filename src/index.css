@@ -3,8 +3,9 @@
 @tailwind utilities;
 
 .colored-toast.swal2-icon-success {
-    background-color: #857aff !important;
+    background-color: #1fdb0a !important;
     color: #fff;
+    font-size: 14px !important;
 }
 
 body,
@@ -50,7 +51,9 @@ pre {
     width: calc(100% / 1 - 15px);
 }
 
-
+.category_item_products {
+    width: calc(100% / 1 - 15px);
+}
 
 .category_item {
     width: calc(100% / 3 - 5px);
@@ -96,16 +99,8 @@ pre {
 /* ================== 
 category page
 =============== */
-.category_page_item>a {
-    display: inline-block;
-    width: calc(100% / 5 - 20px);
-    /* height: 100px; */
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px;
+.category_page_item .image-item {
+    width: calc(100% / 1 - 20px);
 }
 
 
@@ -180,6 +175,55 @@ start features-item hover effect
     opacity: 1;
 }
 
+/* start discount */
+.bg-hero {
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.284), rgba(0, 0, 0, 0.632)), url("./assets/images/dejong.jpg");
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 400px;
+}
+
+/* details page */
+.main_img {
+    width: auto;
+    height: 100%;
+    border: 1px solid #4338ca;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    cursor: crosshair;
+    background-position: -100.25px -30.8851px;
+    float: left;
+    background-repeat: no-repeat;
+    /* z-index: 999; */
+    overflow: hidden;
+    margin-left: 0px;
+    margin-top: 0px;
+}
+
+
+figure.main_img:hover {
+    display: block;
+}
+
+figure.main_img img {
+    display: block;
+    /* width: 100%; */
+    margin: auto;
+    pointer-events: none;
+    height: 100%;
+    background: #fff;
+}
+
+figure.main_img:hover img {
+    opacity: 0;
+}
+
+
 /*============================
     start media quieries 
 ==============================*/
@@ -202,6 +246,10 @@ start features-item hover effect
     .brand_item_products,
     .category_item_products {
         width: calc(100% / 2 - 15px);
+    }
+
+    .category_page_item .image-item {
+        width: calc(100% / 2 - 20px);
     }
 }
 
@@ -238,6 +286,10 @@ start features-item hover effect
     .swiper-button-prev::after {
         font-size: 40px !important;
     }
+
+    .category_page_item .image-item {
+        width: calc(100% / 3 - 20px);
+    }
 }
 
 @media (min-width: 1200px) {
@@ -254,5 +306,9 @@ start features-item hover effect
     .brand_items .brand_item,
     .features-item {
         width: calc(100% / 4 - 10px);
+    }
+
+    .category_page_item .image-item {
+        width: calc(100% / 4 - 20px);
     }
 }

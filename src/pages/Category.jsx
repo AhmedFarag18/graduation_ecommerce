@@ -21,8 +21,8 @@ function Category() {
             <Navbar />
             <section className='py-10'>
                 <div className='container'>
-                    <div className='flex gap-5'>
-                        <div className='w-3/12 p-2 flex flex-col gap-1'>
+                    <div className='flex gap-5 max-sm:justify-center'>
+                        <div className='w-3/12 p-2 flex flex-col gap-1 max-sm:hidden'>
                             <CategorySideItem name="Smartphones" brands={["Samsung"]} />
                             <CategorySideItem name="Tops" brands={["Samsung", "Hawawi", "Apple"]} />
                             <CategorySideItem name="Laptop's" brands={["Hp", "Dell", "Asus", "Inspiron", "Lenovo"]} />
@@ -34,9 +34,9 @@ function Category() {
                                 category.map(item => {
                                     return (
                                         <Link to={`/category/${item.id}?name=${item.name}`} key={item.id}
-                                            className={`image-item p-2 text-2xl hover:bg-gray-100 hover:text-main-color transition duration-300 hover:shadow cursor-pointer`}>
-                                            {/* <span>{item.name}</span> */}
+                                            className={`image-item p-2 text-2xl hover:bg-gray-100 hover:text-main-color transition duration-300 hover:shadow cursor-pointer flex gap-3 items-center flex-col justify-center rounded-lg`}>
                                             <img src={item.pictureUrl} />
+                                            <span className='text-center'>{item.name}</span>
                                         </Link>
                                     )
                                 })

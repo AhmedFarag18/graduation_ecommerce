@@ -42,10 +42,10 @@ function BrandItem() {
                             BrandProducts.map(item => {
                                 return (
                                     <div className="brand_item_products p-6 flex flex-col rounded border hover:shadow-xl transition cursor-grab" key={item.id}>
-                                        <Link to={`/details/${item.id}?search=${item.productBrand}`} className="cursor-pointer">
-                                            <img src={item.pictureUrl} alt={item.id} className="h-52 w-auto" />
+                                        <Link to={`/details/${item.id}?search=${item.name.replace(" ", '')}`} className="cursor-pointer">
+                                            <img src={item.pictureUrl} alt={item.id} className="h-96 mx-auto" />
                                             <span className='block my-2 text-sm text-white rounded-md w-max py-1 px-2 bg-main-color'>{item.productBrand}</span>
-                                            <h4 className="card_item-name font-medium text-xl my-1">{item.title}</h4>
+                                            <h4 className="card_item-name font-medium text-xl my-1">{item.name}</h4>
                                             <p className='card_item-desc text-sm my-2'>{item.description}</p>
                                         </Link>
                                         <div>
@@ -53,7 +53,7 @@ function BrandItem() {
                                             <span className='text-sm'> USD</span>
                                         </div>
                                         <div className='flex gap-2'>
-                                            <Link to={`/details/${item.id}?search=${item.productType.replace(" ", '')}`} className='cursor-pointer rounded-md px-5 p-2 bg-main-color mt-4 text-white text-sm capitalize text-center'>View Details</Link>                                        </div>
+                                            <Link to={`/details/${item.id}?search=${item.name.replace(" ", '')}`} className='cursor-pointer rounded-md px-5 p-2 bg-main-color mt-4 text-white text-sm capitalize text-center'>View Details</Link>                                        </div>
                                     </div>
                                 )
                             })

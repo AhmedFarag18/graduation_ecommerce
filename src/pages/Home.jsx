@@ -30,34 +30,3 @@ const Home = () => {
 };
 
 export default Home;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // const [userName, setUserName] = useState('');
-
-    // useEffect(() => {
-    //     (
-    //         async () => {
-    //             const response = await fetch("https://localhost:5001/api/Account", {
-    //                 headers: { 'Content-Type': 'application/json' },
-    //             })
-    //             const content = await response.json();
-    //             console.log(content)
-    //         }
-    //     )();
-    // }, [])
-

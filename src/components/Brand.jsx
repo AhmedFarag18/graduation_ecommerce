@@ -7,7 +7,7 @@ import { API_URL } from '../App';
 function Brand() {
 
     // const colors = ["#c6b293", "#b05747", "#6f9b82", "#3caf74", "#f4afb2", "#faba59"];
-    const colors = ["bg-red-200", "bg-indigo-200", "bg-orange-200", "bg-teal-200", "bg-yellow-200", "bg-neutral-200", "bg-slate-200", "bg-green-200", "bg-lime-200"];
+    const colors = ["border-red-200", "border-indigo-200", "border-orange-200", "border-teal-200", "border-yellow-200", "border-neutral-200", "border-slate-200", "border-green-200", "border-lime-200"];
 
     const [brands, setBrands] = useState([]);
     useEffect(() => {
@@ -25,7 +25,6 @@ function Brand() {
                 <div className='container'>
                     <div className="flex items-center justify-between py-3">
                         <h3 className='text-3xl font-semibold text-neutral-900 mb-6'>Explore Our Brands</h3>
-                        {/* <Link to="/brand" className="hover:text-main-color transition duration-300">All Categories <BsBoxArrowUpRight className="inline-block mx-1" /> </Link> */}
                     </div>
                     <div className="brand_items flex flex-wrap gap-2">
                         {
@@ -33,7 +32,7 @@ function Brand() {
                                 return (
                                     <Link to={`/brand/${item.id}?name=${item.name}`} className="brand_item bg-white" key={item.id}>
                                         <div className="flex gap-3 py-5 justify-center items-center border border-gray-100 hover:border-main-color rounded transition cursor-pointer" key={item.id}>
-                                            <div className={`h-24 w-24 rounded-full border flex justify-center items-center border-neutral-300 p-2 overflow-hidden ${colors[Math.floor(Math.random() * colors.length)]}`}>
+                                            <div className={`h-24 w-24 rounded-full border flex justify-center items-center ${colors[Math.floor(Math.random() * colors.length)]} border-2 p-2 overflow-hidden bg-white`}>
                                                 <img src={item.pictureUrl} alt={item.id} className="rounded" />
                                             </div>
                                             <div className='flex gap-2 flex-col'>

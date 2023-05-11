@@ -1,17 +1,21 @@
 import { useState } from "react";
 import { FaOpencart } from "react-icons/fa"
 import { Link } from "react-router-dom";
-import { AiOutlineUserAdd, AiOutlineSetting, AiOutlineBranches, AiOutlineLineChart } from "react-icons/ai";
-import { BiCategory, BiMessageSquareAdd } from "react-icons/bi";
-
+import { AiOutlineSetting, AiOutlineBranches, AiOutlineLineChart } from "react-icons/ai";
+import { BiCategory, BiMessageSquareAdd, BiUser } from "react-icons/bi";
+import { IoBagHandle } from "react-icons/io5";
+import { VscTypeHierarchySub } from "react-icons/vsc";
+import sideNavImg from "./../assets/images/sidenav/control.png"
 const SideNav = () => {
     const [open, setOpen] = useState(true);
     const Menus = [
+        { title: "Dashboard", src: <BiUser className="text-2xl" />, gap: true, link: "/dashboard" },
         { title: "Get products", src: <AiOutlineLineChart className="text-2xl" />, link: "/dashboard/getproducts" },
+        { title: "All Brands", src: <IoBagHandle className="text-2xl" />, link: "/dashboard/allbrands" },
+        { title: "All Types", src: <VscTypeHierarchySub className="text-2xl" />, link: "/dashboard/alltypes" },
         { title: "Add Product", src: <BiMessageSquareAdd className="text-2xl" />, gap: true, link: "/dashboard/addproduct" },
         { title: "Add Brand", src: <AiOutlineBranches className="text-2xl" />, link: "/dashboard/addbrand" },
         { title: "Add Type", src: <BiCategory className="text-2xl" />, link: "/dashboard/addtype" },
-        { title: "Add User", src: <AiOutlineUserAdd className="text-2xl" />, link: "/dashboard/adduser" },
         { title: "Setting", src: <AiOutlineSetting className="text-2xl" />, gap: true, link: "/dashboard/" },
     ];
 
@@ -22,7 +26,7 @@ const SideNav = () => {
                     } bg-main-color h-screen p-5  pt-8 relative duration-300`}
             >
                 <img
-                    src="../src/assets/images/sidenav/control.png"
+                    src={sideNavImg}
                     className={`absolute cursor-pointer -right-3 top-9 w-7 border-main-color
                                             border-2 rounded-full  ${!open && "rotate-180"}`}
                     onClick={() => setOpen(!open)}

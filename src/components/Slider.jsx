@@ -7,9 +7,9 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "../assets/css/mainslider.css";
-import sliderImg1 from "../assets/images/slider/slider01.png";
-import sliderImg2 from "../assets/images/slider/slider02.png";
-import sliderImg3 from "../assets/images/slider/slider03.png";
+import sliderImg1 from "../assets/images/slider/banner-01.jpg";
+import sliderImg2 from "../assets/images/slider/banner-02.jpg";
+import sliderImg3 from "../assets/images/slider/banner-03.jpg";
 
 const Slider = () => {
 

@@ -8,10 +8,11 @@ const cartSlice = createSlice({
 
         addToCart: (state, action) => {
             const findProduct = state.find(product => product.id === action.payload.id)
+            console.log(action.payload);
             if (findProduct) {
                 findProduct.quantity += action.payload.quantity;
             } else {
-                const productClone = { ...action.payload };
+                const productClone = mapProductItemToBasketItem(action.payload);
                 state.push(productClone);
             }
             localStorage.setItem('cart', JSON.stringify(state));
@@ -34,3 +35,16 @@ const cartSlice = createSlice({
 })
 export const { addToCart, deleteFromCart, clearCart } = cartSlice.actions;
 export default cartSlice.reducer
+
+
+function mapProductItemToBasketItem(item) {
+    return {
+        id: item.id,
+        productName: item.name,
+        price: item.price,
+        quantity: 0,
+        pictureUrl: item.pictureUrl,
+        brand: item.productBrand,
+        type: item.productType
+    };
+}

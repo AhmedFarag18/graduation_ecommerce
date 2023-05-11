@@ -14,6 +14,58 @@
 // import img14 from "../src/assets/images/category/home_kitchen.png";
 // import img15 from "../src/assets/images/category/wearables.png";
 // import img16 from "../src/assets/images/category/headsets.png";
+// import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+// import { Toast } from "../../../components/Toast";
+// import { API_URL } from "../../../App";
+
+
+// export const createBasketAsync = createAsyncThunk(
+//     'basket/createBasket',
+//     async (basketItems, { getState }) => {
+//         console.log(getState())
+//         const { deliveryMethodId, paymentIntentId, clientSecret, shippingPrice } = getState().basket;
+//         const response = await axios.post(`${API_URL}/basket`, {
+//             basketItems,
+//             deliveryMethodId,
+//             paymentIntentId,
+//             clientSecret,
+//             shippingPrice
+//         });
+//         return response.data;
+//     }
+// );
+
+// const basketSlice = createSlice({
+//     name: 'basketSlice',
+//     initialState: {
+//         id: null,
+//         basketItems: JSON.stringify(localStorage.getItem('cart')),
+//         deliveryMethodId: null,
+//         paymentIntentId: null,
+//         clientSecret: null,
+//         shippingPrice: null
+//     },
+//     reducers: {
+//         setBasket(state, action) {
+//             state.basket = action.payload;
+//         },
+//     },
+//     extraReducers: (builder) => {
+//         builder.addCase(createBasketAsync.fulfilled, (state, action) => {
+//             const { id, basketItems, deliveryMethodId, paymentIntentId, clientSecret, shippingPrice } = action.payload;
+//             state.id = id;
+//             state.basketItems = basketItems;
+//             state.deliveryMethodId = deliveryMethodId;
+//             state.paymentIntentId = paymentIntentId;
+//             state.clientSecret = clientSecret;
+//             state.shippingPrice = shippingPrice;
+//         });
+//     }
+// });
+
+// export const { } = basketSlice.actions;
+
+// export default basketSlice.reducer;
 
 // const category = [
 //     {

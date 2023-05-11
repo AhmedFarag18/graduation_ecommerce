@@ -61,8 +61,8 @@ const Cart = () => {
                                                         <div className='flex p-2 gap-6 items-center w-6/12'>
                                                             <img src={product.pictureUrl} width="80" />
                                                             <div className='flex-col flex gap-2'>
-                                                                <span className='text-base font-semibold'>{product.name}</span>
-                                                                <span className='text-sm bg-gray-200 p-2 w-fit text-main-color rounded'>{product.productType}</span>
+                                                                <span className='text-base font-semibold'>{product.productName}</span>
+                                                                <span className='text-sm bg-gray-200 p-2 w-fit text-main-color rounded'>{product.type}</span>
                                                             </div>
                                                         </div>
                                                         <div className='flex p-2 w-2/12'>

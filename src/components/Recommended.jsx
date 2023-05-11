@@ -18,7 +18,6 @@ function Recommended({ title, search }) {
                 setProducts(product.data);
             })
     }, []);
-    // console.log(products);
     return (
         <>
             {
@@ -32,9 +31,8 @@ function Recommended({ title, search }) {
                                     return (
                                         <div className='flex max-sm:w-full max-md:w-1/2 w-1/4 py-5 px-2 select-none' key={item.id}>
                                             <div className="card_item w-full p-6 flex flex-col rounded border hover:shadow-xl transition cursor-grab">
-                                                <Link to={`/details/${item.id}?search=${item.productType.replace(" ", '')}`} className="cursor-pointer">
-                                                    <img src={item.pictureUrl} alt={`image-${item.id}`} className="h-52 w-full" />
-                                                    <span className='block my-2 text-sm text-white rounded-md w-max py-1 px-2 bg-main-color'>{item.productBrand}</span>
+                                                <Link to={`/details/${item.id}?search=${item.name.replace(" ", '')}`} className="cursor-pointer">
+                                                    <img src={item.pictureUrl} alt={`image-${item.id}`} className="h-96 mx-auto" />                                                    <span className='block my-2 text-sm text-white rounded-md w-max py-1 px-2 bg-main-color'>{item.productBrand}</span>
                                                     <h4 className="card_item-name font-medium text-xl my-1">{item.name}</h4>
                                                     <p className='card_item-desc text-sm my-2'>{item.description}</p>
                                                 </Link>
@@ -43,7 +41,7 @@ function Recommended({ title, search }) {
                                                     <span className='text-sm'> USD</span>
                                                 </div>
                                                 <div className='flex gap-2'>
-                                                    <Link to={`/details/${item.id}?search=${item.productType.replace(" ", '')}`} className='cursor-pointer rounded-md px-5 p-2 bg-main-color mt-4 text-white text-sm capitalize text-center'>View Details</Link>                                                </div>
+                                                    <Link to={`/details/${item.id}?search=${item.name.replace(" ", '')}`} className='cursor-pointer rounded-md px-5 p-2 bg-main-color mt-4 text-white text-sm capitalize text-center'>View Details</Link>                                                </div>
                                             </div>
                                         </div>
                                     )
