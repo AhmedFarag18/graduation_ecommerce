@@ -2,11 +2,13 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Toast } from "../../components/Toast";
 import { redirect } from "react-router-dom";
 import Swal from "sweetalert2";
+import { toast } from "react-hot-toast";
+import { API_URL } from "../../App";
 
 
 export const extraLoginAction = createAsyncThunk("authSlice/login", async (data) => {
 
-    const res = await fetch("https://localhost:5001/api/Account/login", {
+    const res = await fetch(`${API_URL}/Account/login`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -25,10 +27,7 @@ const authSlice = createSlice({
             state.user = null;
             localStorage.removeItem('user');
             // navigate('/login');
-            Toast.fire({
-                icon: 'success',
-                title: 'You have logged out successfully'
-            })
+            toast.success('You have logged out successfully')
         }
     },
 
@@ -45,21 +44,17 @@ const authSlice = createSlice({
                         denyButtonText: `return to login`,
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.href = 'http://localhost:3000/signup';
+                            redirect('/signup');
                         }
                     })
 
                 } else {
                     localStorage.setItem('user', JSON.stringify(user));
                     state.user = user;
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'You have logged in successfully'
-                    })
+                    toast.success('You have logged in successfully')
                     // get return url from location state or default to home page
                     redirect("/");
                 }
-
             })
 
     }

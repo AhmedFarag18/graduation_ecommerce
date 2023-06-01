@@ -35,7 +35,7 @@ function Category() {
                                     return (
                                         <Link to={`/category/${item.id}?name=${item.name}`} key={item.id}
                                             className={`image-item p-2 text-2xl hover:bg-gray-100 hover:text-main-color transition duration-300 hover:shadow cursor-pointer flex gap-3 items-center flex-col justify-center rounded-lg`}>
-                                            <img src={item.pictureUrl} />
+                                            <img src={item.pictureUrl} alt='image' />
                                             <span className='text-center'>{item.name}</span>
                                         </Link>
                                     )

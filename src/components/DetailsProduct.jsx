@@ -10,6 +10,8 @@ import { AiFillStar } from 'react-icons/ai';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { Toast } from './Toast';
+import toast, { Toaster } from 'react-hot-toast';
+import { comment } from 'postcss';
 
 function DetailsProduct({ productID }) {
 
@@ -22,9 +24,18 @@ function DetailsProduct({ productID }) {
 
     const [zoom, setZoom] = useState({});
     const [review, setReview] = useState([]);
-    const [newComment, setNewComment] = useState([]);
-    const token = authUser.token;
-    const email = authUser.email;
+    const [newComment, setNewComment] = useState("");
+    // const token = authUser.token;
+    // const email = authUser.email;
+
+    const getReviews = () => {
+        fetch(`${API_URL}/Comments?productId=${productID}`)
+            .then((res) => res.json())
+            .then((review) => {
+                setReview(review);
+            })
+    }
+
     useEffect(() => {
         fetch(`${API_URL}/Products/${productID}`)
             .then((res) => res.json())
@@ -37,12 +48,8 @@ function DetailsProduct({ productID }) {
                 })
                 setSrc(product.pictureUrl);
             })
+        getReviews()
 
-        fetch(`${API_URL}/Comments?productId=${productID}`)
-            .then((res) => res.json())
-            .then((review) => {
-                setReview(review);
-            })
     }, [productID])
 
     const uploadData = async (e) => {
@@ -50,20 +57,23 @@ function DetailsProduct({ productID }) {
         const formData = new FormData();
         formData.append('productId', productID);
         formData.append('text', newComment);
-        formData.append('buyerEmail', email);
+        formData.append('buyerEmail', authUser.email);
 
         try {
-            await axios.post(`${API_URL}/Comments`,
-                formData, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
-            }).then(() => {
-                Toast.fire({
-                    icon: 'success',
-                    title: 'Your comment added'
+            if (newComment !== "") {
+                await axios.post(`${API_URL}/Comments`,
+                    formData, {
+                    headers: {
+                        'Authorization': `Bearer ${authUser.token}`
+                    },
+                }).then(() => {
+                    toast.success('Comment added successfully');
+                    getReviews();
+                    setNewComment("");
                 })
-            })
+            } else {
+                toast.error("comment is empty");
+            }
         } catch (err) {
             console.log(err);
         }
@@ -83,7 +93,18 @@ function DetailsProduct({ productID }) {
         document.querySelector(".main_img img").src = e.target.src;
         setSrc(e.target.src)
     }
-
+    const handleSignIn = () => {
+        Swal.fire({
+            title: "You don't have Access to add Comment, Please Sign In?",
+            showDenyButton: true,
+            confirmButtonText: 'Sign In',
+            denyButtonText: `return`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                navigate("/login");
+            }
+        })
+    }
     return (
         <div className='product_details py-10'>
             <div className='container'>
@@ -92,7 +113,7 @@ function DetailsProduct({ productID }) {
                     <div className='product-image w-full  md:w-1/2 py-5 flex gap-2 select-none rounded p-5'>
                         <div className='all_images w-2/12 flex flex-col gap-3'>
                             <div className="border p-1 rounded cursor-pointer ">
-                                <img src={product.pictureUrl} alt={`image-${product.id}`} onClick={(e) => { changeMainImg(e) }}></img>
+                                <img src={product.pictureUrl} alt={`image-${product.name}`} onClick={(e) => { changeMainImg(e) }}></img>
                             </div>
                             {
                                 product.images && product.images.map((img, idx) => {
@@ -104,7 +125,7 @@ function DetailsProduct({ productID }) {
                         </div>
                         <div className='relative w-full overflow-hidden bg-gray-50'>
                             <figure className='main_img' onMouseMove={handleMouseMove} style={zoom} >
-                                <img src={product.pictureUrl} className="w-full mb-10 h-full" alt={product.id} />
+                                <img src={product.pictureUrl} className="w-full mb-10 h-full" alt={product.name} />
                             </figure>
                         </div>
                     </div>
@@ -153,19 +174,32 @@ function DetailsProduct({ productID }) {
                                 })
                         }
                     </div>
-                    <form onSubmit={uploadData} className='add_comment mb-8'>
-                        <h5 className='text-xl font-bold mb-4'>Add New Comment</h5>
-                        <div className='flex gap-3 justify-between'>
-                            {/* <textarea className='bg-gray-50 w-10/12' /> */}
-                            <div className='userName bg-main-color text-white rounded-full w-10 h-10 flex justify-center items-center' title={authUser.email}>{authUser.displayName.slice(0, 2).toUpperCase()}</div>
-                            <textarea onChange={(e) => setNewComment(e.target.value)} id="description" rows="6" className="focus:outline-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-main-color focus:border-main-color " placeholder="Write a Comment..."></textarea>
-                        </div>
-                        <div className='flex justify-end mt-3'>
-                            <button type="submit" className="text-white bg-main-color focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
-                                Add Comment
-                            </button>
-                        </div>
-                    </form>
+                    {
+                        authUser ? <form onSubmit={uploadData} className='add_comment mb-8'>
+                            <h5 className='text-xl font-bold mb-4'>Add New Comment</h5>
+                            <div className='flex gap-3 justify-between'>
+                                <div className='userName bg-main-color text-white rounded-full w-10 h-10 flex justify-center items-center' title={authUser.email}>{authUser.displayName.slice(0, 2).toUpperCase()}</div>
+                                <textarea value={newComment} onChange={(e) => setNewComment(e.target.value)} id="description" rows="6" className="focus:outline-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-main-color focus:border-main-color " placeholder="Write a Comment..."></textarea>
+                            </div>
+                            <div className='flex justify-end mt-3'>
+                                <button type="submit" className="text-white bg-main-color focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
+                                    Add Comment
+                                </button>
+                            </div>
+                        </form> :
+                            <div className='add_comment mb-8'>
+                                <h5 className='text-xl font-bold mb-4'>Add New Comment</h5>
+                                <div className='flex gap-3 justify-between'>
+                                    <div className='userName bg-main-color text-white rounded-full w-10 h-10 flex justify-center items-center' title="Anonymous">A</div>
+                                    <textarea disabled id="description" rows="6" className="focus:outline-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-main-color focus:border-main-color " placeholder="Please sign in to add comment..."></textarea>
+                                </div>
+                                <div className='flex justify-end mt-3'>
+                                    <button type="submit" onClick={() => handleSignIn()} className="text-white bg-main-color focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
+                                        Add Comment
+                                    </button>
+                                </div>
+                            </div>
+                    }
                 </div>
             </div>
         </div>

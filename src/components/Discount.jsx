@@ -22,7 +22,7 @@ function Discount() {
                     </div>
                     <div className="card-image w-auto select-none">
                         <div className="image-wrapper w-full md:-mt-20">
-                            <img src={discount} className="w-full max-md:max-w-sm" />
+                            <img src={discount} className="w-full max-md:max-w-sm" alt='discount' />
                         </div>
                     </div>
                 </div>

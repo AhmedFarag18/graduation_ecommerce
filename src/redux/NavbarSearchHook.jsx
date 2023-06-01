@@ -9,7 +9,7 @@ function NavbarSearchHook() {
     const [found, setFound] = useState(true);
     const final = useSelector((state) => state.products);
     const [products, setProducts] = useState([]);
-    const [searchWord, setSearchWord] = useState(localStorage.getItem('searchWord'));
+    const [searchWord, setSearchWord] = useState(localStorage.getItem('searchWord') || "");
     let [count, setCount] = useState(0);
 
     const navigate = useNavigate()
@@ -23,7 +23,6 @@ function NavbarSearchHook() {
         setCurrentPage(pageNumber);
     };
     const onChangeSearch = (e) => {
-        // console.log(e.target.value);
         setSearchWord(e.target.value);
         localStorage.setItem('searchWord', e.target.value);
 
@@ -31,17 +30,14 @@ function NavbarSearchHook() {
     }
     const onChangeBrandId = (e) => {
         setBrandId(e.target.value);
-        console.log(e.target.value);
     }
     const onChangeTypeId = (e) => {
         setTypeId(e.target.value);
-        console.log(e.target.value);
     }
 
     useEffect(() => {
         const debounceSearch = setTimeout(() => {
             dispatch(getAllProducts(`?PageIndex=${currentPage}&PageSize=${pageSize}${`${brandId ? `&BrandId=${brandId}` : ``}`}${`${typeId ? `&TypeId=${typeId}` : ``}`}${`${localStorage.getItem("searchWord") ? `&Search=${localStorage.getItem("searchWord")}` : ``}`}`))
-            console.log(`?PageIndex=${currentPage}&PageSize=${pageSize}${`${brandId ? `&BrandId=${brandId}` : ``}`}${`${typeId ? `&TypeId=${typeId}` : ``}`}${`${localStorage.getItem("searchWord") ? `&Search=${localStorage.getItem("searchWord")}` : ``}`}`);
         }, 1200);
         return () => {
             clearTimeout(debounceSearch);

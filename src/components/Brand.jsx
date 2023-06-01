@@ -33,7 +33,7 @@ function Brand() {
                                     <Link to={`/brand/${item.id}?name=${item.name}`} className="brand_item bg-white" key={item.id}>
                                         <div className="flex gap-3 py-5 justify-center items-center border border-gray-100 hover:border-main-color rounded transition cursor-pointer" key={item.id}>
                                             <div className={`h-24 w-24 rounded-full border flex justify-center items-center ${colors[Math.floor(Math.random() * colors.length)]} border-2 p-2 overflow-hidden bg-white`}>
-                                                <img src={item.pictureUrl} alt={item.id} className="rounded" />
+                                                <img src={item.pictureUrl} alt={item.name} className="rounded" />
                                             </div>
                                             <div className='flex gap-2 flex-col'>
                                                 <h5 className="brand_item-name font-bold capitalize text-main-color">{item.name}</h5>

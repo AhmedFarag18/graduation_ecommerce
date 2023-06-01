@@ -32,7 +32,7 @@ function Recommended({ title, search }) {
                                         <div className='flex max-sm:w-full max-md:w-1/2 w-1/4 py-5 px-2 select-none' key={item.id}>
                                             <div className="card_item w-full p-6 flex flex-col rounded border hover:shadow-xl transition cursor-grab">
                                                 <Link to={`/details/${item.id}?search=${item.name.replace(" ", '')}`} className="cursor-pointer">
-                                                    <img src={item.pictureUrl} alt={`image-${item.id}`} className="h-96 mx-auto" />                                                    <span className='block my-2 text-sm text-white rounded-md w-max py-1 px-2 bg-main-color'>{item.productBrand}</span>
+                                                    <img src={item.pictureUrl} alt={`image-${item.name}`} className="h-96 mx-auto" />                                                    <span className='block my-2 text-sm text-white rounded-md w-max py-1 px-2 bg-main-color'>{item.productBrand}</span>
                                                     <h4 className="card_item-name font-medium text-xl my-1">{item.name}</h4>
                                                     <p className='card_item-desc text-sm my-2'>{item.description}</p>
                                                 </Link>

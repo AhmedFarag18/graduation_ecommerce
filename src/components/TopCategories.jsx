@@ -28,8 +28,8 @@ function TopCategories() {
                         category ? category.slice(0, 8).map((item) => {
                             return (
                                 <Link to={`/category/${item.id}?name=${item.name}`} className="category_item" key={item.id}>
-                                    <div className="flex flex-col py-5 justify-center items-center hover:shadow-md rounded transition cursor-pointer" key={item.id}>
-                                        <img src={item.pictureUrl} alt={item.id} className="h-auto w-3/4" />
+                                    <div className="flex flex-col py-5 justify-center items-center rounded big_shadow transition duration-300 cursor-pointer" key={item.id}>
+                                        <img src={item.pictureUrl} alt={item.name} className="h-auto w-3/4" />
                                         <h5 className="category_item-name">{item.name}</h5>
                                     </div>
                                 </Link>

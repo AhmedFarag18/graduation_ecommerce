@@ -4,28 +4,51 @@ import { FcGoogle } from 'react-icons/fc'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { extraLoginAction } from '../redux/slices/auth-slice';
+import { createBasket, getCart } from '../redux/slices/cart-slice';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import * as Yup from 'yup';
+import { Formik } from 'formik/dist';
 
 function LogIn() {
     let navigate = useNavigate();
-
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const authUser = useSelector(x => x.auth.user);
+    let cartData = useSelector(x => x.auth.cart);
     const dispatch = useDispatch();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const data = {
-            email,
-            password
-        }
-        if (email === "" || password === "") {
-            alert("Enter all Data");
-        }
-        else {
+    const [showPassword, setShowPassword] = useState(false);
+
+    const toggleShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
+
+    // start initializing validation
+    const InitialValues = { email: "", password: "" };
+    const validationSchema = Yup.object().shape({
+        email: Yup.string()
+            .email()
+            .required("Email is Required"),
+        password: Yup.string()
+            .required("No password provided.")
+            .min(8, 'Password must be at least 8 characters long')
+            .matches(/[0-9]/, 'Password requires a number')
+            .matches(/[a-z]/, 'Password requires a lowercase letter')
+            .matches(/[A-Z]/, 'Password requires an uppercase letter')
+            .matches(/[^\w]/, 'Password requires a symbol')
+    });
+
+    const handleSubmit = async (values, { setSubmitting }) => {
+        setTimeout(() => {
+            const data = values;
             dispatch(extraLoginAction(data));
-            // setRedirectPage(true);
-        }
+            if (localStorage.getItem("cart_id")) {
+                dispatch(getCart())
+                cartData = localStorage.getItem("cart");
+            } else {
+                dispatch(createBasket())
+            }
+            setSubmitting(false);
+        }, 500);
     }
 
 
@@ -50,34 +73,79 @@ function LogIn() {
                                 <h3 className='text-2xl md:text-2xl font-bold mb-2 px-2 sm:px-24'>Log in to your account</h3>
                                 <p className='text-neutral-700'>Welcome back! Please enter your details.</p>
                             </div>
-                            <form className='bg-white rounded-md shadow-md p-10' onSubmit={handleSubmit}>
-                                <div className='inputs'>
-                                    <div className='my-4 flex flex-col gap-1'>
-                                        <label className="font-medium text-base text-neutral-800">Email</label>
-                                        <input type="email" className='p-2 pl-3 text-neutral-600 font-normal w-full rounded-md focus:outline-none focus:ring-1 border' placeholder='Enter Your email'
-                                            onChange={(e) => setEmail(e.target.value)} />
-                                    </div>
-                                    <div className='my-4 flex flex-col gap-1'>
-                                        <label className="font-medium text-base text-neutral-800">Password</label>
-                                        <input type="password" className='p-2 pl-3 text-neutral-600 font-normal w-full rounded-md focus:outline-none focus:ring-1 border' placeholder='Enter Password'
-                                            onChange={(e) => setPassword(e.target.value)} />
-                                    </div>
-                                </div>
-                                <div className='login_btns flex flex-col gap-3'>
-                                    <div className='flex gap-1 justify-between'>
-                                        <div className='text-sm flex gap-1 items-center select-none'>
-                                            <input type="checkbox" id='remember'></input>
-                                            <label htmlFor='remember'>Remember for 30 days</label>
-                                        </div>
-                                        <Link to="/forgetpassword" className='text-sm text-indigo-500'>Forget password</Link>
-                                    </div>
-                                    <button type="submit" className='bg-indigo-500  text-white p-2 rounded-md text-center mt-3 cursor-pointer hover:bg-main-color transition duration-300' onClick={(e) => handleSubmit}>sign In</button>
-                                    <button className='flex gap-2 justify-center items-center border focus:outline-none p-2 rounded-md border-neutral-400 text'>
-                                        <FcGoogle className='text-xl' />
-                                        <span>Sign in with Google</span>
-                                    </button>
-                                </div>
-                            </form>
+                            <Formik
+                                initialValues={InitialValues}
+                                onSubmit={handleSubmit}
+                                validationSchema={validationSchema}
+                            >
+                                {props => {
+                                    const {
+                                        values,
+                                        touched,
+                                        errors,
+                                        isSubmitting,
+                                        handleChange,
+                                        handleBlur,
+                                        handleSubmit
+                                    } = props;
+                                    return (
+                                        <form onSubmit={handleSubmit} className='bg-white rounded-md shadow-md p-10'>
+                                            <div className='inputs'>
+                                                <div className='my-4 flex flex-col gap-1'>
+                                                    <label className="font-medium text-base text-neutral-800" htmlFor="email">Email</label>
+                                                    <input
+                                                        name="email"
+                                                        type="text"
+                                                        placeholder="Enter your email"
+                                                        value={values.email}
+                                                        onChange={handleChange}
+                                                        onBlur={handleBlur}
+                                                        className='p-2 pl-3 text-neutral-600 font-normal w-full rounded-md focus:outline-none focus:ring-1 border'
+                                                    />
+                                                    {errors.email && touched.email && (
+                                                        <div className="text-red-600 text-sm pl-2">{errors.email}</div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                            <div className='my-4 flex flex-col gap-1'>
+                                                <label className="font-medium text-base text-neutral-800" htmlFor="password">Password</label>
+                                                <div className='relative'>
+                                                    <input
+                                                        name="password"
+                                                        type={showPassword ? 'text' : 'password'}
+                                                        placeholder="Enter your password"
+                                                        value={values.password}
+                                                        onChange={handleChange}
+                                                        onBlur={handleBlur}
+                                                        className='p-2 pl-3 text-neutral-600 font-normal w-full rounded-md focus:outline-none focus:ring-1 border'
+                                                    />
+                                                    <span onClick={toggleShowPassword} className='absolute cursor-pointer top-1/2 right-2 text-main-color text-xl -translate-x-1/2 -translate-y-1/2 flex' >
+                                                        {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+                                                    </span>
+                                                </div>
+                                                {errors.password && touched.password && (
+                                                    <div className="text-red-600 text-sm pl-2">{errors.password}</div>
+                                                )}
+                                            </div>
+                                            <div className='login_btns flex flex-col gap-3'>
+                                                <div className='flex gap-1 justify-between'>
+                                                    <div className='text-sm flex gap-1 items-center select-none'>
+                                                        <input type="checkbox" id='remember'></input>
+                                                        <label htmlFor='remember'>Remember for 30 days</label>
+                                                    </div>
+                                                    <Link to="/forgetpassword" className='text-sm text-indigo-500'>Forget password</Link>
+                                                </div>
+                                                <button type="submit" disabled={isSubmitting} className='bg-indigo-500  text-white p-2 rounded-md text-center mt-3 cursor-pointer hover:bg-main-color transition duration-300'>sign In</button>
+                                                <button type='button' className='flex gap-2 justify-center items-center border focus:outline-none p-2 rounded-md border-neutral-400 text'>
+                                                    <FcGoogle className='text-xl' />
+                                                    <span>Sign in with Google</span>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    );
+                                }}
+                            </Formik>
+
                             <div className='text-center mt-5'>
                                 <span>Don't have an account? </span>
                                 <Link to="/signup" className='text-indigo-500 underline'>Sign up</Link>

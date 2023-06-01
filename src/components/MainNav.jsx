@@ -9,8 +9,8 @@ import NavbarSearchHook from '../redux/NavbarSearchHook';
 
 function MainNav() {
     const [isOpen, toggleSidebar] = useState(true);
-    const cart = useSelector(state => state.cart);
-    const cartItmes = useSelector(state => state.cart);
+    const cart = useSelector(state => state.cart.basketItems);
+    const cartItmes = useSelector(state => state.cart.basketItems);
     const [onChangeSearch, searchWord, currentPage, totalPages, count, setCount, handlePageChange, pageSize, onChangeProduct, setBrandId, brandId] = NavbarSearchHook();
 
     const totalPrice = cartItmes.reduce((acc, product) => {
@@ -25,7 +25,7 @@ function MainNav() {
                     <div className='flex items-center  cursor-auto md:flex-grow'>
                         <Link to="/">
                             {/* <span className="logo_icon flex justify-center items-center gap-1 self-center text-4xl font-bold whitespace-nowrap text-main-color cursor-pointer"> <FaOpencart className='inline-block text-3xl' /> Nova.</span> */}
-                            <img src={logo} className='w-36 select-none' />
+                            <img src={logo} className='w-36 select-none' alt='logo' />
                         </Link>
                     </div>
                     <div className="flex md:hidden">

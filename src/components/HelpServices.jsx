@@ -22,7 +22,7 @@ const HelpServices = () => {
                                         <p className='text-base'>{item.desc}</p>
                                     </div>
                                     <div className='image overflow-hidden rounded-b-lg'>
-                                        <img src={item.img} alt={`img-${item.id}`} className='rounded-b-lg w-full hover:scale-110 transition duration-300' />
+                                        <img src={item.img} alt={`img-${item.title}`} className='rounded-b-lg w-full hover:scale-110 transition duration-300' />
                                     </div>
                                 </div>)
                         })

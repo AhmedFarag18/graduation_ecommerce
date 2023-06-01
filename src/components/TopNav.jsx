@@ -3,6 +3,7 @@ import { FaFacebook, FaRegUser, FaTwitter } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { authActions } from '../redux/slices/auth-slice';
+import { clearCart } from '../redux/slices/cart-slice';
 
 function TopNav() {
 
@@ -47,7 +48,14 @@ function TopNav() {
                                         </li>
                                     </ul>
                                     <div className="py-1">
-                                        <Link onClick={() => dispatch(authActions.logout())} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ">Sign out</Link>
+                                        <Link
+                                            onClick={() => {
+                                                dispatch(authActions.logout())
+                                                dispatch(clearCart());
+                                            }}
+                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ">
+                                            Sign out
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

@@ -25,12 +25,17 @@ function BrandItem() {
     return (
         <>
             <Navbar />
+            <div className='brand_item_details'>
+                <div className='container flex justify-center items-center flex-col h-full'>
+                    <h2 className='text-base pt-10 text-white'>
+                        <Link to="/brand">Brand</Link>
+                        <span> / </span>
+                        <Link to={`/brand/${brandId}`} className='text-main-color'>{brandName}</Link>
+                    </h2>
+                    <p className='text-4xl text-white mt-10'>Explore {brandName} Products</p>
+                </div>
+            </div>
             <div className='container'>
-                <h1 className='text-base pt-10'>
-                    <Link to="/brand">Brand</Link>
-                    <span> / </span>
-                    <Link to={`/brand/${brandId}`} className='text-main-color'>{brandName}</Link>
-                </h1>
                 <div className='py-10 flex flex-wrap gap-3'>
                     {
                         spinner ?
@@ -43,7 +48,7 @@ function BrandItem() {
                                 return (
                                     <div className="brand_item_products p-6 flex flex-col rounded border hover:shadow-xl transition cursor-grab" key={item.id}>
                                         <Link to={`/details/${item.id}?search=${item.name.replace(" ", '')}`} className="cursor-pointer">
-                                            <img src={item.pictureUrl} alt={item.id} className="h-96 mx-auto" />
+                                            <img src={item.pictureUrl} alt={item.name} className="h-96 mx-auto" />
                                             <span className='block my-2 text-sm text-white rounded-md w-max py-1 px-2 bg-main-color'>{item.productBrand}</span>
                                             <h4 className="card_item-name font-medium text-xl my-1">{item.name}</h4>
                                             <p className='card_item-desc text-sm my-2'>{item.description}</p>
