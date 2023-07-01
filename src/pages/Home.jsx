@@ -11,18 +11,18 @@ import HomeCardPayment from '../components/HomeCardPayment';
 import HelpServices from '../components/HelpServices';
 
 const Home = () => {
-    let searchText = "phone"
-
     return (
         <>
             <Navbar />
             <Slider />
             <Features />
+            <BestDeals title="Latest Products" query="?PageIndex=6&PageSize=6" />
             <BestBrands />
             <TopCategories />
             <Discount />
-            <BestDeals title="Best Deals" search={searchText} />
+            <BestDeals title="Latest of Barcelona" query="?search=barcelona" />
             <HomeCardPayment />
+            <BestDeals title="Best cheap products" query="?sort=priceAsc" />
             <HelpServices />
             <Footer />
         </>

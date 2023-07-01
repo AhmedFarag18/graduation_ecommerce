@@ -15,7 +15,11 @@ const DeleteBrand = () => {
     const [brand, setBrand] = useState("");
 
     useEffect(() => {
-        fetch(`${API_URL}/DashboardBrand/${brandId}`)
+        fetch(`${API_URL}/DashboardBrand/${brandId}`, {
+            headers: {
+                Authorization: `Bearer ${authUser.token}`
+            }
+        })
             .then((res) => res.json())
             .then((brand) => {
                 setBrand(brand);
@@ -62,11 +66,9 @@ const DeleteBrand = () => {
 
     return (
         <div className='flex'>
-            <div className={` ${open ? "w-1/5" : "w-20 "} bg-main-color h-screen p-5  pt-8 relative duration-300`}>
-                <SideNav open={open} setOpen={setOpen} />
-            </div>
-            <div className='p-5 w-4/5'>
-                <div className="focus:outline-none relative p-4 bg-white rounded-lg shadow  sm:p-5">
+            <SideNav open={open} setOpen={setOpen} />
+            <div className='p-5 details_side'>
+                <div className="focus:outline-none container relative p-4 bg-white rounded-lg shadow  sm:p-5">
                     <form onSubmit={uploadData}>
                         <h3 className="focus:outline-none text-2xl font-semibold text-gray-900 ">
                             Delete Brand

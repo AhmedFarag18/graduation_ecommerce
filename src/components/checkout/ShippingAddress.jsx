@@ -1,10 +1,12 @@
 import React from 'react'
-import { FaArrowAltCircleRight } from 'react-icons/fa';
+import { toast } from 'react-hot-toast';
+import { FaArrowAltCircleRight } from 'react-icons/fa'
+import { useDispatch } from 'react-redux';
 
-function ShippingAddress({ values, touched, errors, handleChange, handleBlur, setOpenTab }) {
+function ShippingAddress({ setOpenTab, values, touched, errors, handleChange, handleBlur, isSubmitting }) {
+    const dispatch = useDispatch();
     return (
         <>
-
             <div className='p-5 mb-5'>
                 <h4 className='text-2xl text-neutral-900 my-5 font-semibold'>Shipping information</h4>
                 <div className='flex gap-2 w-full pl-5'>
@@ -96,13 +98,19 @@ function ShippingAddress({ values, touched, errors, handleChange, handleBlur, se
                 </div>
             </div>
             <div className='buttons_step flex justify-end items-center'>
-                <a className={"text-base uppercase p-4 shadow hover:shadow-lg transition duration-200 rounded flex gap-2 justify-center items-center leading-normal bg-white text-main-color"}
-                    onClick={e => {
-                        e.preventDefault();
-                        setOpenTab(2);
-                    }} data-toggle="tab" href="#link3" role="tablist">
+                <button className={"text-base uppercase p-4 shadow hover:shadow-lg transition duration-200 rounded flex gap-2 justify-center items-center leading-normal bg-white text-main-color"}
+                    onClick={(e) => {
+                        e.preventDefault()
+                        if (values.firstName == "" || values.lastName == "" || values.country == "" || values.city == "" || values.state == "" || values.street == "") {
+                            setOpenTab(1)
+                            toast.error('Add all input is required')
+                        } else {
+                            setOpenTab(2);
+                            console.log(values)
+                        }
+                    }}>
                     Next <FaArrowAltCircleRight className="text-2xl mr-1" />
-                </a>
+                </button>
             </div>
         </>
     )

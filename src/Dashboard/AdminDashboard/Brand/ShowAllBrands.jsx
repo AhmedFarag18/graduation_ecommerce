@@ -25,11 +25,9 @@ const ShowAllBrands = () => {
 
     return (
         <div className='flex'>
-            <div className={` ${open ? "w-1/5" : "w-20 "} bg-main-color h-screen p-5  pt-8 relative duration-300`}>
-                <SideNav open={open} setOpen={setOpen} />
-            </div>
-            <div className='p-5 w-4/5'>
-                <div className="flex flex-col">
+            <SideNav open={open} setOpen={setOpen} />
+            <div className='p-5 details_side'>
+                <div className="flex flex-col container">
                     <div className="overflow-x-auto">
                         <div className="inline-block min-w-full align-middle">
                             <div className="overflow-hidden shadow">

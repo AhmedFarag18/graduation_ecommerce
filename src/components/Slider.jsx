@@ -24,7 +24,7 @@ const Slider = () => {
     }]
 
     return (
-        <div className="flex relative container max-md:flex-wrap gap-4">
+        <div className="hero_slider flex relative container max-md:flex-wrap gap-4">
             <div className="w-full p-2 flex items-center justify-center md:w-3/12  max-md:hidden">
                 <div className="img-bg h-full mt-3 rounded-lg" ></div>
             </div>

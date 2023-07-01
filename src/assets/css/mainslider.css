@@ -7,7 +7,7 @@
     opacity: 0;
     transform: scale(0);
     transition: .4s ease;
-    color: #eee;
+    color: #000000;
 }
 
 .swiper-button-next::after,
@@ -31,13 +31,16 @@
     width: 30px;
     height: 4px;
     border-radius: 5px;
-    background: #eee;
+    background: #000000;
 }
 
 .cards_items .swiper-pagination-bullet,
 .cards_items .swiper-scrollbar {
     display: none !important;
-    /* background-color: red;
-    z-index: 333; */
     overflow: hidden !important;
+}
+
+.cards_items .swiper-button-next,
+.cards_items .swiper-button-prev {
+    display: none;
 }

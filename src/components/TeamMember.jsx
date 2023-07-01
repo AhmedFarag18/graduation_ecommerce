@@ -8,7 +8,7 @@ function TeamMember(props) {
                 <img src={props.img} alt={props.name} width="80" className='rounded-full p-1 border-2 border-main-color' />
                 <div className='flex flex-col'>
                     <span className='name block text-indigo-600 capitalize font-medium'>{props.name}</span>
-                    <span className='job block text-sm text-neutral-600'>{props.job}</span>
+                    <span className='job block text-sm text-neutral-600'>{props.role}</span>
                 </div>
             </div>
             <p className='text-sm text-neutral-500 mb-8 leading-6'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur </p>

@@ -5,7 +5,7 @@ import ScrollToTop from '../components/ScrollToTop'
 import AddBrand from '../Dashboard/AdminDashboard/Brand/AddBrand'
 import AddProduct from '../Dashboard/AdminDashboard/Product/AddProduct'
 import AddType from '../Dashboard/AdminDashboard/Type/AddType'
-import GetProducts from '../Dashboard/AdminDashboard/GetProducts'
+import GetProducts from '../Dashboard/AdminDashboard/Product/GetProducts'
 import Category from '../pages/Category'
 import CategoryItem from '../pages/CategoryItem'
 import Contact from '../pages/Contact'
@@ -33,6 +33,11 @@ import ForgetPassword from '../pages/ForgetPassword'
 import ResetPassword from '../pages/ResetPassword'
 import Dashboard from '../Dashboard/Dashboard'
 import AddRole from '../Dashboard/AdminDashboard/AddRole'
+import AddRoleToUser from '../Dashboard/AdminDashboard/AddRoleToUser'
+import Ordersuccess from '../components/checkout/Ordersuccess'
+import AdminSetting from '../Dashboard/AdminDashboard/AdminSetting'
+import ChangePassword from '../Dashboard/changePassword'
+import Error from '../pages/Error'
 
 function Router() {
   return (
@@ -42,6 +47,7 @@ function Router() {
       <Routes>
         {/* user and anyone can access that */}
         <Route path="/" element={<Home />} />
+        <Route path="*" element={<Error />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/cart" element={<Cart />} />
@@ -59,7 +65,10 @@ function Router() {
         <Route element={<PrivateRoute />}>
           {/* user and admin can access */}
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/ordersuccess" element={<Ordersuccess />} />
 
+          <Route path='/dashboard/setting' element={<AdminSetting />} />
+          <Route path='/dashboard/changepassword' element={<ChangePassword />} />
           {/* admin only */}
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/dashboard/getproducts' element={<GetProducts />} />
@@ -79,6 +88,7 @@ function Router() {
 
           <Route path='/dashboard/users' element={<GetAllUsers />} />
           <Route path='/dashboard/addrole' element={<AddRole />} />
+          <Route path='/dashboard/addroletouser' element={<AddRoleToUser />} />
         </Route>
       </Routes>
     </BrowserRouter>

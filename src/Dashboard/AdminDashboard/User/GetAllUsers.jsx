@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import SideNav from '../SideNav'
 import { Link, useNavigate } from 'react-router-dom';
-import { BiEdit } from 'react-icons/bi';
 import { API_URL } from '../../../App';
 import { MdDelete } from 'react-icons/md';
 import Swal from 'sweetalert2';
@@ -62,10 +61,8 @@ const GetAllUsers = () => {
 
     return (
         <div className='flex'>
-            <div className={` ${open ? "w-1/5" : "w-20 "} bg-main-color h-screen p-5  pt-8 relative duration-300`}>
-                <SideNav open={open} setOpen={setOpen} />
-            </div>
-            <div className='products_data p-7  w-4/5'>
+            <SideNav open={open} setOpen={setOpen} />
+            <div className='products_data p-7 details_side'>
                 <div className='container'>
                     <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl ">All Users</h1>
                     <div className="flex flex-col">
@@ -119,10 +116,6 @@ const GetAllUsers = () => {
                                                                 <td className="p-4 text-base font-medium text-gray-900 whitespace-nowrap ">{item.phoneNumber}</td>
                                                                 <td className="p-4 text-base font-medium text-gray-900 whitespace-nowrap ">{`${item.address.country},  ${item.address.city},  ${item.address.street}`}</td>
                                                                 <td className="p-4 space-x-2 whitespace-nowrap">
-                                                                    <Link id="updateProductButton" className="inline-flex gap-1 items-center px-3 py-2 text-white rounded-lg bg-indigo-700 hover:bg-indigo-800">
-                                                                        <BiEdit className='text-xl' />
-                                                                        <span className='text-sm font-medium text-center'>Update</span>
-                                                                    </Link>
                                                                     <Link onClick={() => handleDeleteUser(item.email)} id="deleteProductButton" className="inline-flex gap-1 items-center px-3 py-2  text-white bg-red-700 rounded-lg hover:bg-red-800">
                                                                         <MdDelete className='text-xl' />
                                                                         <span className='text-sm font-medium text-center'>Delete item</span>

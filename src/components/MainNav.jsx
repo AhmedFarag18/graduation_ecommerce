@@ -6,6 +6,7 @@ import { RiShoppingCartLine } from 'react-icons/ri';
 import { useSelector } from 'react-redux';
 import logo from "../assets/logo-white.png"
 import NavbarSearchHook from '../redux/NavbarSearchHook';
+import { subTotal } from '../redux/slices/cart-slice';
 
 function MainNav() {
     const [isOpen, toggleSidebar] = useState(true);
@@ -13,10 +14,7 @@ function MainNav() {
     const cartItmes = useSelector(state => state.cart.basketItems);
     const [onChangeSearch, searchWord, currentPage, totalPages, count, setCount, handlePageChange, pageSize, onChangeProduct, setBrandId, brandId] = NavbarSearchHook();
 
-    const totalPrice = cartItmes.reduce((acc, product) => {
-        acc += product.price * product.quantity;
-        return acc;
-    }, 0);
+    const totalPrice = subTotal()
 
     return (
         <>

@@ -14,6 +14,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import { comment } from 'postcss';
 
 function DetailsProduct({ productID }) {
+    const [rating, setRating] = useState(0);
+    const [hover, setHover] = useState(0);
 
     let navigate = useNavigate();
     const dispatch = useDispatch();
@@ -23,16 +25,16 @@ function DetailsProduct({ productID }) {
     const [src, setSrc] = useState("");
 
     const [zoom, setZoom] = useState({});
-    const [review, setReview] = useState([]);
+    const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
     // const token = authUser.token;
     // const email = authUser.email;
 
-    const getReviews = () => {
+    const getComments = () => {
         fetch(`${API_URL}/Comments?productId=${productID}`)
             .then((res) => res.json())
-            .then((review) => {
-                setReview(review);
+            .then((comments) => {
+                setComments(comments);
             })
     }
 
@@ -41,15 +43,14 @@ function DetailsProduct({ productID }) {
             .then((res) => res.json())
             .then((product) => {
                 setProduct(product);
-
+                setComments(product.comments);
                 setZoom({
                     backgroundImage: `url(${product.pictureUrl})`,
                     backgroundPosition: '0% 0%'
                 })
                 setSrc(product.pictureUrl);
             })
-        getReviews()
-
+        // getComments()
     }, [productID])
 
     const uploadData = async (e) => {
@@ -68,7 +69,7 @@ function DetailsProduct({ productID }) {
                     },
                 }).then(() => {
                     toast.success('Comment added successfully');
-                    getReviews();
+                    getComments();
                     setNewComment("");
                 })
             } else {
@@ -79,6 +80,35 @@ function DetailsProduct({ productID }) {
         }
     }
 
+    const addRating = async () => {
+        const formRating = new FormData();
+        formRating.append('productId', productID);
+        formRating.append('Value', rating);
+        formRating.append('buyerEmail', authUser.email);
+        console.log({
+            productId: productID,
+            Value: rating,
+
+        })
+        try {
+            if (rating !== "") {
+                await axios.post(`${API_URL}/Rating/${productID}`,
+                    formRating, {
+                    headers: {
+                        'Authorization': `Bearer ${authUser.token}`
+                    },
+                }).then(() => {
+                    toast.success('Rating added successfully');
+
+                    // setRating(0);
+                })
+            } else {
+                toast.error("Rating is empty");
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     // make zoom for image whn hover
     const handleMouseMove = (e) => {
@@ -156,12 +186,39 @@ function DetailsProduct({ productID }) {
                     </div>
                 </div>
 
+                {/* start rating component */}
+                <div className="star-rating">
+                    {[...Array(5)].map((star, index) => {
+                        index += 1;
+                        return (
+                            <button
+                                type="button"
+                                key={index}
+                                className={`bg-transparent border-none ${index <= (hover || rating) ? "text-yellow-600" : "text-black"}`}
+                                onClick={() => setRating(index)}
+                                onMouseEnter={() => setHover(index)}
+                                onMouseLeave={() => setHover(rating)}
+                            >
+                                <span className="star text-4xl">&#9733;</span>
+                            </button>
+                        );
+                    })}
+                    <div>
+                        <button type='submit' onClick={() => addRating()}
+                            className="text-white bg-main-color focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
+                            Add Rating
+                        </button>
+                    </div>
+                </div>
+
+
+
                 <div className='mt-10 p-5'>
                     <div className=' py-6 px-3 mt-5'>
                         <h5 className='text-xl font-bold'>All comments</h5>
                         {
-                            review.status === 404 ? "Don't have any comments" :
-                                review.map(comment => {
+                            comments.length ?
+                                comments.map(comment => {
                                     return (
                                         <div className='all_comments shadow-md bg-gray-50 mt-5 py-3 pt-0 flex flex-col gap-x-5 gap-y-2' key={comment.id}>
                                             <div className='username items-center flex gap-3 p-2 w-fit m-2 border-b border-b-main-color'>
@@ -172,6 +229,7 @@ function DetailsProduct({ productID }) {
                                         </div>
                                     )
                                 })
+                                : <p>Don't have any comments</p>
                         }
                     </div>
                     {

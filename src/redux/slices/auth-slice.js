@@ -37,17 +37,7 @@ const authSlice = createSlice({
                 const user = action.payload;
                 // store user details and basic auth data in local storage to keep user logged in between page refreshes
                 if (user.statusCode === 401) {
-                    Swal.fire({
-                        title: "You don't have Account, Do you want to sign up?",
-                        showDenyButton: true,
-                        confirmButtonText: 'Sign up',
-                        denyButtonText: `return to login`,
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            redirect('/signup');
-                        }
-                    })
-
+                    toast.error('Email or password is wrong!')
                 } else {
                     localStorage.setItem('user', JSON.stringify(user));
                     state.user = user;

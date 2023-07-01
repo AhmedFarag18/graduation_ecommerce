@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { BiEdit } from 'react-icons/bi';
 import { MdDelete } from 'react-icons/md';
 import { Link } from 'react-router-dom'
-import { API_URL } from '../../App';
-import SideNav from './SideNav';
+import { API_URL } from '../../../App';
+import SideNav from '../SideNav';
 
 function GetProducts() {
     const [products, setProducts] = useState([]);
@@ -31,10 +31,8 @@ function GetProducts() {
 
     return (
         <div className='flex'>
-            <div className={` ${open ? "w-1/5" : "w-20 "} bg-main-color h-screen p-5  pt-8 relative duration-300`}>
-                <SideNav open={open} setOpen={setOpen} />
-            </div>
-            <div className='products_data p-7  w-4/5 max-sm:w3/5'>
+            <SideNav open={open} setOpen={setOpen} />
+            <div className='products_data p-7  details_side'>
                 <div className='container'>
                     <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl ">All products</h1>
                     <div className="items-center justify-start flex-wrap flex md:divide-x gap-2 md:divide-gray-100">

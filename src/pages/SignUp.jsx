@@ -54,7 +54,6 @@ function SignUp() {
         if (emailExists) {
             toast.error("email already exists");
         } else {
-            console.log(values);
             const data = values
             await fetch(`${API_URL}/Account/register`, {
                 method: "POST",
@@ -174,10 +173,10 @@ function SignUp() {
                                             <button type="submit" disabled={isSubmitting} className='bg-main-color  text-white p-2 rounded-md text-center mt-3 cursor-pointer hover:bg-indigo-600 transition duration-300'>
                                                 <span>Get started</span>
                                             </button>
-                                            <button type='button' className='flex gap-2 justify-center items-center border focus:outline-none p-2 rounded-md border-neutral-400 text'>
+                                            {/* <button type='button' className='flex gap-2 justify-center items-center border focus:outline-none p-2 rounded-md border-neutral-400 text'>
                                                 <FcGoogle className='text-xl' />
                                                 <span>Sign up with Google</span>
-                                            </button>
+                                            </button> */}
                                         </div>
                                     </form>
                                 );

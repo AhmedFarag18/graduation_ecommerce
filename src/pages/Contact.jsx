@@ -18,10 +18,10 @@ function Contact() {
                         <p className='text-neutral-400'>You can contact with us, This project for Graduation</p>
                     </div>
                     <div className='flex flex-wrap gap-3'>
-                        <TeamMember img={member1} links={["https://github.com/ahmedfarag18", "https://www.facebook.com/", "https://www.instagram.com/", "https://www.linkedin.com/"]} name="ahmed farag" job="Front end developer" />
-                        <TeamMember img={member2} links={["https://github.com/AbdelrhmanFathy18", "https://www.facebook.com/", "https://www.instagram.com/", "https://www.linkedin.com/"]} name="Abdelrahman Fathy" job="Back end developer" />
-                        <TeamMember img={member3} links={["https://github.com/ahmedfarag18", "https://www.facebook.com/", "https://www.instagram.com/", "https://www.linkedin.com/"]} name="ahmed saadawy" job="Data Entry" />
-                        <TeamMember img={member4} links={["https://github.com/ahmedfarag18", "https://www.facebook.com/", "https://www.instagram.com/", "https://www.linkedin.com/"]} name="Hussein Ashraf" job="Writer" />
+                        <TeamMember img={member1} links={["https://github.com/ahmedfarag18", "https://www.facebook.com/", "https://www.instagram.com/", "https://www.linkedin.com/in/ahmedfarag18/"]} name="ahmed farag" role="Front end developer" />
+                        <TeamMember img={member2} links={["https://github.com/AbdelrhmanFathy18", "https://www.facebook.com/", "https://www.instagram.com/", "https://www.linkedin.com/"]} name="Abdelrahman Fathy" role="Back end developer" />
+                        <TeamMember img={member3} links={["https://github.com/ahmedfarag18", "https://www.facebook.com/", "https://www.instagram.com/", "https://www.linkedin.com/"]} name="ahmed saadawy" role="Data Entry" />
+                        <TeamMember img={member4} links={["https://github.com/ahmedfarag18", "https://www.facebook.com/", "https://www.instagram.com/", "https://www.linkedin.com/"]} name="Hussein Ashraf" role="Writer" />
                     </div>
                 </div>
             </section>

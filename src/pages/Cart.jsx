@@ -4,16 +4,13 @@ import { Link } from 'react-router-dom'
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
 import CartItem from '../components/CartItem'
-import { clearCart, getCart, updateItemQty } from '../redux/slices/cart-slice'
+import { clearCart, getCart, subTotal, updateItemQty } from '../redux/slices/cart-slice'
 
 const Cart = () => {
 
     const cartItmes = useSelector(state => state.cart.basketItems);
     const dispatch = useDispatch();
-    const totalPrice = cartItmes.reduce((acc, product) => {
-        acc += product.price * product.quantity;
-        return acc;
-    }, 0);
+    const totalPrice = subTotal();
     const qty = cartItmes.reduce((acc, product) => {
         acc += product.quantity;
         return acc;

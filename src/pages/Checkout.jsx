@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Navbar from '../components/Navbar'
 import OrderSummary from '../components/checkout/OrderSummary'
 import CheckoutForm from '../components/checkout/CheckoutForm'
 
 
 const Checkout = () => {
-
-    const [openTab, setOpenTab] = useState(1);
 
     return (
         <div>

@@ -1,16 +1,12 @@
 import React from 'react'
-import CartItem from '../CartItem';
-import { deleteFromCart, updateItemQty } from '../../redux/slices/cart-slice';
-import { useDispatch, useSelector } from 'react-redux';
-import { MdDelete } from 'react-icons/md';
+import { subTotal } from '../../redux/slices/cart-slice';
+import { useSelector } from 'react-redux';
 
 function OrderSummary() {
     const orderItems = useSelector(state => state.cart.basketItems);
-    const dispatch = useDispatch();
+    const shippingPrice = useSelector(state => state.basket.shippingPrice);
 
-    const onUpdate = (updatedItem) => {
-        dispatch(updateItemQty(updatedItem))
-    }
+    const totalPrice = subTotal() + shippingPrice;
 
     return (
         <div className='lg:w-1/3 w-full h-fit shadow rounded py-5 px-2'>
@@ -48,6 +44,10 @@ function OrderSummary() {
                         )
                     })
                 }
+            </div>
+            <div className='p-2'>
+                <p className='flex justify-between items-center'>shipping Price <span className='text-main-color'>{shippingPrice}$</span></p>
+                <p className='flex justify-between items-center'>Total Price <span className='text-main-color'>{totalPrice}$</span></p>
             </div>
         </div>
     )

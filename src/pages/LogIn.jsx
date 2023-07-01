@@ -4,10 +4,11 @@ import { FcGoogle } from 'react-icons/fc'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { extraLoginAction } from '../redux/slices/auth-slice';
-import { createBasket, getCart } from '../redux/slices/cart-slice';
+import { getCart } from '../redux/slices/cart-slice';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import * as Yup from 'yup';
 import { Formik } from 'formik/dist';
+import { createBasket } from '../redux/slices/basket-slice';
 
 function LogIn() {
     let navigate = useNavigate();
@@ -136,10 +137,10 @@ function LogIn() {
                                                     <Link to="/forgetpassword" className='text-sm text-indigo-500'>Forget password</Link>
                                                 </div>
                                                 <button type="submit" disabled={isSubmitting} className='bg-indigo-500  text-white p-2 rounded-md text-center mt-3 cursor-pointer hover:bg-main-color transition duration-300'>sign In</button>
-                                                <button type='button' className='flex gap-2 justify-center items-center border focus:outline-none p-2 rounded-md border-neutral-400 text'>
+                                                {/* <button type='button' className='flex gap-2 justify-center items-center border focus:outline-none p-2 rounded-md border-neutral-400 text'>
                                                     <FcGoogle className='text-xl' />
                                                     <span>Sign in with Google</span>
-                                                </button>
+                                                </button> */}
                                             </div>
                                         </form>
                                     );

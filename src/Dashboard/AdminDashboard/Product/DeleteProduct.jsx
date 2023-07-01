@@ -60,10 +60,8 @@ const DeleteProduct = () => {
 
     return (
         <div className='flex'>
-            <div className={` ${open ? "w-1/5" : "w-20 "} bg-main-color h-screen p-5  pt-8 relative duration-300`}>
-                <SideNav open={open} setOpen={setOpen} />
-            </div>
-            <div className=" w-4/5 focus:outline-none relative p-4 max-w-5xl m-auto h-full md:h-auto">
+            <SideNav open={open} setOpen={setOpen} />
+            <div className=" details_side focus:outline-none relative p-4 max-w-5xl m-auto h-full md:h-auto">
                 <div className="focus:outline-none relative p-4 bg-white rounded-lg shadow  sm:p-5">
                     <div className="focus:outline-none flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5">
                         <h3 className="focus:outline-none text-2xl font-semibold text-gray-900 ">

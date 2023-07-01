@@ -44,8 +44,74 @@ dashboard
     width: calc((100% / 1) - 10px);
 }
 
+.profile_bg {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.514), rgba(0, 0, 0, 0.596)), url(./assets/images/bg/bg-natural.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
 
-/* category */
+.profile_details {
+    width: calc(100% / 2 - 10px);
+}
+
+/*------------------
+sideNavbar 
+-----------------*/
+.side_navbar {
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-90%);
+    transform-origin: left;
+    transition: .5s ease;
+}
+
+.side_navbar.show {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(0%);
+}
+
+.side_navbar_icon {
+    position: absolute;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid #4338ca;
+    z-index: 100;
+    top: 50%;
+    transform: translateY(-50%) rotate(0);
+    width: 50px;
+    height: 50px;
+    transition: .5s ease;
+    left: 0;
+}
+
+.side_navbar_icon.opend {
+    left: 90%;
+}
+
+@keyframes rotate {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-rotate {
+    animation: rotate 3s linear infinite;
+}
+
+.side_navbar_icon.closed {
+    left: 0;
+}
+
+.details_side {
+    width: 100%;
+}
+
+
+/*===================
+category 
+====================*/
 
 .category_items {
     display: flex;
@@ -241,7 +307,7 @@ start features-item hover effect
 }
 
 .reset_password {
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.284), rgba(0, 0, 0, 0.632)), url("./assets/images/bg/banner-04-m.png");
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.284), rgba(0, 0, 0, 0.632)), url("./assets/images/bg/2.jpg");
 }
 
 /* details page */

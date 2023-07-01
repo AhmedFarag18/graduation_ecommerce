@@ -148,10 +148,8 @@ function EditProduct() {
 
     return (
         <div className='flex'>
-            <div className={` ${open ? "w-1/5" : "w-20 "} bg-main-color h-screen p-5  pt-8 relative duration-300`}>
-                <SideNav open={open} setOpen={setOpen} />
-            </div>
-            <div className=" w-4/5 focus:outline-none relative p-4 max-w-5xl m-auto h-full md:h-auto">
+            <SideNav open={open} setOpen={setOpen} />
+            <div className=" details_side focus:outline-none relative p-4 max-w-5xl m-auto h-full md:h-auto">
                 <div className="focus:outline-none relative p-4 bg-white rounded-lg shadow  sm:p-5">
                     <div className="focus:outline-none flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5">
                         <h3 className="focus:outline-none text-2xl font-semibold text-gray-900 ">
@@ -166,7 +164,7 @@ function EditProduct() {
                             </div>
                             <div>
                                 <label htmlFor="brand" className="focus:outline-none block mb-2 text-sm font-medium text-gray-900">brand</label>
-                                <select value={selectedBrand} onChange={(e) => {
+                                <select value={selectedBrandId} onChange={(e) => {
                                     setSelectedBrand(e.target.value)
                                     setSelectedBrandId(e.target.value)
                                 }} id="brand" name='brand' className="focus:outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-main-color focus:border-main-color block w-full p-2.5 ">
@@ -179,7 +177,7 @@ function EditProduct() {
                             </div>
                             <div>
                                 <label htmlFor="type" className="focus:outline-none block mb-2 text-sm font-medium text-gray-900">Type</label>
-                                <select value={selectedType} onChange={(e) => {
+                                <select value={selectedTypeId} onChange={(e) => {
                                     setSelectedTypeId(e.target.value)
                                     setSelectedType(e.target.value)
                                 }}

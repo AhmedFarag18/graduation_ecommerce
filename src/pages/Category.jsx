@@ -21,15 +21,11 @@ function Category() {
             <Navbar />
             <section className='py-10'>
                 <div className='container'>
+                    <div className="flex items-center justify-between py-3">
+                        <h3 className='text-3xl font-semibold text-neutral-900 mb-6'>Explore Our Categories</h3>
+                    </div>
                     <div className='flex gap-5 max-sm:justify-center'>
-                        <div className='w-3/12 p-2 flex flex-col gap-1 max-sm:hidden'>
-                            <CategorySideItem name="Smartphones" brands={["Samsung"]} />
-                            <CategorySideItem name="Tops" brands={["Samsung", "Hawawi", "Apple"]} />
-                            <CategorySideItem name="Laptop's" brands={["Hp", "Dell", "Asus", "Inspiron", "Lenovo"]} />
-                            <CategorySideItem name="Mobiles" brands={["Samsung", "Hawawi", "Lenovo"]} />
-                            <CategorySideItem name="Clothes" brands={["Z&H", "Fire Wood", "Sutra"]} />
-                        </div>
-                        <div className="category_page_item flex flex-wrap w-8/12 gap-5 p-5 rounded">
+                        <div className="category_page_item flex flex-wrap w-full gap-5 p-5 rounded">
                             {
                                 category.map(item => {
                                     return (

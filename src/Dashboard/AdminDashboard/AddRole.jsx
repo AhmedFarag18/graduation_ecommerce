@@ -38,10 +38,8 @@ const AddRole = () => {
     return (
 
         <div className='flex'>
-            <div className={` ${open ? "w-1/5" : "w-20 "} bg-main-color h-screen p-5  pt-8 relative duration-300`}>
-                <SideNav open={open} setOpen={setOpen} />
-            </div>
-            <div className='p-5 w-4/5'>
+            <SideNav open={open} setOpen={setOpen} />
+            <div className='p-5 details_side'>
                 <div className="w-full p-6 bg-white rounded-lg shadow md:mt-0 sm:max-w-md m-auto sm:p-8">
                     <h2 className="mb-10 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl text-center">
                         Add New Role

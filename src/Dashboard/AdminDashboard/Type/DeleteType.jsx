@@ -64,11 +64,9 @@ const DeleteType = () => {
 
     return (
         <div className='flex'>
-            <div className={` ${open ? "w-1/5" : "w-20 "} bg-main-color h-screen p-5  pt-8 relative duration-300`}>
-                <SideNav open={open} setOpen={setOpen} />
-            </div>
-            <div className='p-5 w-4/5'>
-                <div className="relative p-4 bg-white rounded-lg shadow  sm:p-5">
+            <SideNav open={open} setOpen={setOpen} />
+            <div className='p-5 details_side'>
+                <div className="relative container p-4 bg-white rounded-lg shadow  sm:p-5">
                     <form onSubmit={uploadData}>
                         <h3 className="text-2xl font-semibold text-gray-900 ">
                             Delete type
