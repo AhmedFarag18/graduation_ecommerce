@@ -4,6 +4,7 @@ import { MdDelete } from 'react-icons/md';
 import { Link } from 'react-router-dom'
 import { API_URL } from '../../../App';
 import SideNav from '../SideNav';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function GetProducts() {
     const [products, setProducts] = useState([]);
@@ -13,7 +14,7 @@ function GetProducts() {
     const [request, setRequest] = useState(false);
 
     useEffect(() => {
-        fetch(`${API_URL}/Products?${`${pageSize ? `&PageSize=${pageSize}` : ``}${search ? `&search=${search}` : ``}`}`)
+        fetch(`${API_URL}/Products/Products?${`${pageSize ? `&PageSize=${pageSize}` : ``}${search ? `&search=${search}` : ``}`}`)
             .then(res => res.json())
             .then(data => {
                 if (data.data.length === 0) {
@@ -86,7 +87,7 @@ function GetProducts() {
                                                                     <div className="text-base font-semibold text-gray-900 ">{item.name}</div>
                                                                 </td>
                                                                 <td className="p-4 text-base font-medium text-gray-900 whitespace-nowrap ">
-                                                                    <img src={item.pictureUrl} alt="product image" className='w-24' />
+                                                                    <LazyLoadImage src={item.pictureUrl} alt="product image" className='w-24' />
                                                                 </td>
                                                                 <td className="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs">{item.price}</td>
                                                                 <td className="p-4 text-base font-medium text-gray-900 whitespace-nowrap ">{item.productBrand}</td>

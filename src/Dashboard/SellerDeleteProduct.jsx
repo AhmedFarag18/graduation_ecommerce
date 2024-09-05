@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
-import { API_URL } from '../../../App';
-import SideNav from '../SideNav';
+import { API_URL } from '../App';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useSelector } from 'react-redux';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-const DeleteProduct = () => {
+function SellerDeleteProduct() {
     const { productId } = useParams();
     const navigate = useNavigate();
     const authUser = useSelector(x => x.auth.user);
@@ -39,16 +38,16 @@ const DeleteProduct = () => {
                 if (result.isConfirmed) {
                     Swal.fire(
                         'Deleted!',
-                        'Your file has been deleted.',
+                        'Your product has been deleted.',
                         'success'
                     )
-                    const res = await axios.post(`${API_URL}/DashboardProduct/deleteproduct/${productId}`, product, {
+                    const res = await axios.post(`${API_URL}/DashboardSeller/deleteproduct/${productId}`, product, {
                         headers: {
                             'Content-Type': 'multipart/form-data',
                             Authorization: `Bearer ${authUser.token}`
                         }
                     })
-                    navigate("/dashboard/getproducts")
+                    navigate(`/dashboard/profile?user=${authUser.email}`)
                 }
             })
 
@@ -57,11 +56,9 @@ const DeleteProduct = () => {
         }
     }
 
-    const [open, setOpen] = useState(true);
 
     return (
         <div className='flex'>
-            <SideNav open={open} setOpen={setOpen} />
             <div className=" details_side focus:outline-none relative p-4 max-w-5xl m-auto h-full md:h-auto">
                 <div className="focus:outline-none relative p-4 bg-white rounded-lg shadow  sm:p-5">
                     <div className="focus:outline-none flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5">
@@ -114,12 +111,8 @@ const DeleteProduct = () => {
                                 <textarea disabled value={product.description} id="description" rows="5" className="focus:outline-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300  " placeholder="Write a description..."></textarea>
                             </div>
                             <div>
-                                <label htmlFor="productOwner" className="focus:outline-none block mb-2 text-sm font-medium text-gray-900">productOwner</label>
-                                <input disabled value={product.productOwner} type="text" name="productOwner" id="productOwner" className="focus:outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 " />
-                            </div>
-                            <div>
-                                <label htmlFor="rating" className="focus:outline-none block mb-2 text-sm font-medium text-gray-900">rating</label>
-                                <input disabled value={product.rating} type="text" name="rating" id="rating" className="focus:outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 " />
+                                <label htmlFor="productOwner" className="focus:outline-none block mb-2 text-sm font-medium text-gray-900">Product Owner</label>
+                                <input disabled value={product.productOwner} type="email" name="productOwner" id="productOwner" className="focus:outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 " />
                             </div>
                         </div>
                         <div className='mb-4'>
@@ -138,4 +131,4 @@ const DeleteProduct = () => {
     )
 }
 
-export default DeleteProduct
+export default SellerDeleteProduct

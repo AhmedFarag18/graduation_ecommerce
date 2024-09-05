@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { AiOutlineCheckCircle } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 import { changeDeliveryMethodId } from '../../redux/slices/order-slice';
-import { changeShippingPrice } from '../../redux/slices/basket-slice';
+import { basketDeliveryMethodId, changeShippingPrice } from '../../redux/slices/basket-slice';
 
 function ShippingMethods({ deliveryMethods }) {
 
@@ -10,6 +10,7 @@ function ShippingMethods({ deliveryMethods }) {
     const [shippingPrice, setShippingPrice] = useState(0);
     const dispatch = useDispatch();
     useEffect(() => {
+        dispatch(basketDeliveryMethodId(methodId))
         dispatch(changeDeliveryMethodId(methodId))
         dispatch(changeShippingPrice(shippingPrice))
         console.log(shippingPrice, " dj ", methodId);
@@ -21,7 +22,7 @@ function ShippingMethods({ deliveryMethods }) {
             <div>
                 <ul className="grid w-full gap-6 md:grid-cols-2 select-none">
                     {
-                        deliveryMethods.map((item) => {
+                        deliveryMethods && deliveryMethods.map((item) => {
                             return (
                                 <li key={item.id}>
                                     <input type="radio" id={`${item.shortName}`}

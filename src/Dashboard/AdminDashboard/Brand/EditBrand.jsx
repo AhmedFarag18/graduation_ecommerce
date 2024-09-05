@@ -6,6 +6,7 @@ import { API_URL } from '../../../App';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useSelector } from 'react-redux';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const EditBrand = () => {
     const authUser = useSelector(x => x.auth.user);
@@ -98,7 +99,7 @@ const EditBrand = () => {
                                     <label htmlFor="pictureUrl" className="focus:outline-none block mb-2 text-sm font-medium text-gray-900">Choose Picture</label>
                                     <input onChange={handleFileChange} type="file" name="pictureUrl" id="pictureUrl" className="focus:outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 " />
                                 </div>
-                                <img src={imageSrc ? imageSrc : brandImage} className='w-28 h-28' alt='upload image' />
+                                <LazyLoadImage src={imageSrc ? imageSrc : brandImage} className='w-28 h-28' alt='upload image' />
                             </div>
                             <div className="focus:outline-none flex items-center space-x-4">
                                 <button type="submit" className="text-white bg-main-color focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">

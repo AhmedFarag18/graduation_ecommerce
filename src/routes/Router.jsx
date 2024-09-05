@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Brand from '../components/Brand'
 import ScrollToTop from '../components/ScrollToTop'
@@ -16,7 +16,7 @@ import LogIn from '../pages/LogIn'
 import Products from '../pages/Products'
 import SignUp from '../pages/SignUp'
 import Cart from '../pages/Cart'
-import { PrivateRoute } from '../Auth/PrivateRoute'
+import PrivateRoute from '../Auth/PrivateRoute'
 import EditProduct from '../Dashboard/AdminDashboard/Product/EditProduct'
 import Checkout from '../pages/Checkout'
 import BrandItem from '../pages/BrandItem'
@@ -38,8 +38,18 @@ import Ordersuccess from '../components/checkout/Ordersuccess'
 import AdminSetting from '../Dashboard/AdminDashboard/AdminSetting'
 import ChangePassword from '../Dashboard/changePassword'
 import Error from '../pages/Error'
+import Profile from '../pages/Profile'
+import ProtectedRoute from '../Auth/ProtectedRoute'
+import DashboardProfile from '../Dashboard/DashboardProfile'
+import SellerAddProduct from '../Dashboard/SellerAddProduct'
+import SellerEditProduct from '../Dashboard/SellerEditProduct'
+import SellerDeleteProduct from '../Dashboard/SellerDeleteProduct'
+import Orders from '../Dashboard/AdminDashboard/Orders'
+// import Chat from '../Dashboard/AdminDashboard/Chat'
 
 function Router() {
+  const [isUser, isAdmin, userData] = ProtectedRoute();
+
   return (
     <BrowserRouter>
       <ScrollToTop />
@@ -47,6 +57,7 @@ function Router() {
       <Routes>
         {/* user and anyone can access that */}
         <Route path="/" element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<Error />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} />
@@ -62,16 +73,24 @@ function Router() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/details/:productID" element={<Details />} />
 
-        <Route element={<PrivateRoute />}>
+        {/* <Route path="/chat" element={<Chat />} /> */}
+
+        <Route element={<PrivateRoute auth={isUser || isAdmin} />}>
           {/* user and admin can access */}
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/ordersuccess" element={<Ordersuccess />} />
-
+          <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/dashboard/setting' element={<AdminSetting />} />
           <Route path='/dashboard/changepassword' element={<ChangePassword />} />
-          {/* admin only */}
-          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/dashboard/profile' element={<DashboardProfile />} />
+          <Route path='/dashboard/profile/add' element={<SellerAddProduct />} />
+          <Route path='/dashboard/profile/edit/:productId' element={<SellerEditProduct />} />
+          <Route path='/dashboard/profile/delete/:productId' element={<SellerDeleteProduct />} />
+        </Route>
+        {/* admin only */}
+        <Route element={<PrivateRoute auth={isAdmin} />}>
           <Route path='/dashboard/getproducts' element={<GetProducts />} />
+          <Route path='/dashboard/orders' element={<Orders />} />
           <Route path='/dashboard/allbrands' element={<ShowAllBrands />} />
           <Route path='/dashboard/alltypes' element={<ShowAllTypes />} />
           <Route path='/dashboard/addproduct' element={<AddProduct />} />
@@ -90,6 +109,7 @@ function Router() {
           <Route path='/dashboard/addrole' element={<AddRole />} />
           <Route path='/dashboard/addroletouser' element={<AddRoleToUser />} />
         </Route>
+
       </Routes>
     </BrowserRouter>
   )

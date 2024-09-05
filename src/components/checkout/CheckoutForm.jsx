@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ShippingAddress from './ShippingAddress';
 import ShippingMethods from './ShippingMethods';
 import PaymentMethod from './PaymentMethod';
-import { extraCreateOrderAction, extraCreatePaymentIntent } from '../../redux/slices/basket-slice';
+import { clientSecret, extraCreateOrderAction, extraCreatePaymentIntent } from '../../redux/slices/basket-slice';
 import { changeshipTOAddress } from '../../redux/slices/order-slice';
 import CheckoutTabs from './CheckoutTabs';
 import { FaArrowAltCircleRight } from 'react-icons/fa';
@@ -31,7 +31,7 @@ const CheckoutForm = () => {
     });
 
     useEffect(() => {
-        fetch(`${API_URL}/Orders/deliveryMethods`, {
+        fetch(`${API_URL}/OrdersDelivery/deliveryMethods`, {
             headers: {
                 'Authorization': `Bearer ${authUser.token}`
             }
@@ -66,7 +66,7 @@ const CheckoutForm = () => {
                                                 <ShippingAddress setOpenTab={setOpenTab} values={values} touched={touched} errors={errors} handleChange={handleChange} handleBlur={handleBlur} />
                                             </div>
                                             <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                                                <ShippingMethods deliveryMethods={deliveryMethods} />
+                                                <ShippingMethods />
                                                 <div className='buttons_step flex justify-between items-center my-5'>
                                                     <a className={"text-base uppercase p-4 shadow-lg rounded flex gap-2 justify-center items-center leading-normal bg-white text-main-color"}
                                                         onClick={e => {
@@ -78,9 +78,11 @@ const CheckoutForm = () => {
                                                     <button className={"text-base uppercase p-4 shadow hover:shadow-lg transition duration-200 rounded flex gap-2 justify-center items-center leading-normal bg-white text-main-color"}
                                                         type="submit" disabled={isSubmitting}
                                                         onClick={() => {
-                                                            setOpenTab(3);
                                                             dispatch(extraCreatePaymentIntent())
                                                             dispatch(changeshipTOAddress(values))
+                                                            if (clientSecret) {
+                                                                setOpenTab(3);
+                                                            }
                                                         }}
                                                         data-toggle="tab" href="#link3" role="tablist">
                                                         Go To Payment <FaArrowAltCircleRight className="text-2xl mr-1" />

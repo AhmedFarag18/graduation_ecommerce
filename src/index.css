@@ -8,6 +8,20 @@
     font-size: 14px !important;
 }
 
+::-webkit-scrollbar-button {
+    width: 10px !important;
+    background-color: #1fdb0a !important;
+}
+
+::-webkit-scrollbar-thumb {
+    width: 10px !important;
+    background-color: #1fdb0a !important;
+}
+
+::-webkit-scrollbar-track {
+    background: #000 !important;
+}
+
 body,
 pre {
     font-family: "Poppins", sans-serif;

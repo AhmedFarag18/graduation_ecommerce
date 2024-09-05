@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, redirect } from 'react-router-dom'
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
 import CartItem from '../components/CartItem'
 import { clearCart, getCart, subTotal, updateItemQty } from '../redux/slices/cart-slice'
+import { toast } from 'react-hot-toast'
 
 const Cart = () => {
 
@@ -18,6 +19,20 @@ const Cart = () => {
     useEffect(() => {
         dispatch(getCart());
     }, [])
+
+    const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('user')) || null)
+    const [notUser, setNotUser] = useState(false)
+
+    const handleCheckUser = () => {
+        if (userData) {
+            dispatch(getCart())
+            setNotUser(false)
+            redirect("/checkout")
+        } else {
+            setNotUser(true)
+            toast.error("Please sign in to see checkout")
+        }
+    }
 
     return (
         <>
@@ -84,7 +99,7 @@ const Cart = () => {
                                                 <span className='text-main-color'>{totalPrice}$</span>
                                             </div>
                                         </div>
-                                        <Link to={`/checkout`} onClick={() => dispatch(getCart())} className='text-sm inline-block cursor-pointer bg-main-color text-white rounded-md p-3 text-center hover:bg-indigo-500 transition duration-300'>Checkout</Link>
+                                        <Link to={`/checkout`} onClick={handleCheckUser} className='text-sm inline-block cursor-pointer bg-main-color text-white rounded-md p-3 text-center hover:bg-indigo-500 transition duration-300'>Checkout</Link>
                                     </div>
                                 </div>
                             </div>

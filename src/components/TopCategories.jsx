@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { API_URL } from "../App";
 import { Link } from "react-router-dom";
 import { BsBoxArrowUpRight } from "react-icons/bs";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 function TopCategories() {
 
@@ -29,7 +30,7 @@ function TopCategories() {
                             return (
                                 <Link to={`/category/${item.id}?name=${item.name}`} className="category_item" key={item.id}>
                                     <div className="flex flex-col py-5 justify-center items-center rounded big_shadow transition duration-300 cursor-pointer" key={item.id}>
-                                        <img src={item.pictureUrl} alt={item.name} className="h-auto w-3/4" />
+                                        <LazyLoadImage src={item.pictureUrl} alt={item.name} className="h-auto w-3/4" />
                                         <h5 className="category_item-name">{item.name}</h5>
                                     </div>
                                 </Link>

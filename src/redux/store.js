@@ -4,10 +4,12 @@ import productsSlice from "./slices/products-slice";
 import authSlice from "./slices/auth-slice";
 import orderSlice from "./slices/order-slice";
 import basketSlice from "./slices/basket-slice";
+import sellerProductsSlice from "./slices/sellerProducts-slice";
 
 export const store = configureStore({
     reducer: {
         products: productsSlice,
+        sellerProducts: sellerProductsSlice,
         cart: cartSlice,
         auth: authSlice,
         order: orderSlice,

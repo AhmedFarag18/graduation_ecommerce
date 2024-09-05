@@ -1,6 +1,7 @@
 import React from 'react'
 import { subTotal } from '../../redux/slices/cart-slice';
 import { useSelector } from 'react-redux';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function OrderSummary() {
     const orderItems = useSelector(state => state.cart.basketItems);
@@ -23,7 +24,7 @@ function OrderSummary() {
                         return (
                             <div className='p-3 mb-3 flex flex-col justify-between items-center w-full' key={product.id}>
                                 <div className="flex gap-2 w-full">
-                                    <img src={product.pictureUrl} width="100" alt={product.productName} />
+                                    <LazyLoadImage src={product.pictureUrl} width="100" alt={product.productName} />
                                     <div className='flex flex-col items-end justify-center w-full gap-5'>
                                         <div className='flex justify-between items-center w-full flex-wrap'>
                                             <span className='inline-block text-base font-semibold'>{product.productName}</span>

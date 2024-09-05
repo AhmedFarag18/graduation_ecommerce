@@ -18,10 +18,10 @@ function Contact() {
                         <p className='text-neutral-400'>You can contact with us, This project for Graduation</p>
                     </div>
                     <div className='flex flex-wrap gap-3'>
-                        <TeamMember img={member1} links={["https://github.com/ahmedfarag18", "https://www.facebook.com/", "https://www.instagram.com/", "https://www.linkedin.com/in/ahmedfarag18/"]} name="ahmed farag" role="Front end developer" />
-                        <TeamMember img={member2} links={["https://github.com/AbdelrhmanFathy18", "https://www.facebook.com/", "https://www.instagram.com/", "https://www.linkedin.com/"]} name="Abdelrahman Fathy" role="Back end developer" />
-                        <TeamMember img={member3} links={["https://github.com/ahmedfarag18", "https://www.facebook.com/", "https://www.instagram.com/", "https://www.linkedin.com/"]} name="ahmed saadawy" role="Data Entry" />
-                        <TeamMember img={member4} links={["https://github.com/ahmedfarag18", "https://www.facebook.com/", "https://www.instagram.com/", "https://www.linkedin.com/"]} name="Hussein Ashraf" role="Writer" />
+                        <TeamMember img={member1} links={["https://github.com/ahmedfarag18", "https://www.facebook.com/", "https://www.instagram.com/", "https://www.linkedin.com/in/ahmedfarag18/"]} name="ahmed farag" role="Front end Developer" description={"He is impressive Front end developer with above 2 years experiences in development websites"} />
+                        <TeamMember img={member2} links={["https://github.com/AbdelrhmanFathy18", "https://www.facebook.com/", "https://www.instagram.com/", "https://www.linkedin.com/"]} name="Abdelrahman Fathy" role="Back end developer & ML.Net" description={"He is impressive Back end developer with 2 years experiences in Asp.net and API's"} />
+                        <TeamMember img={member3} links={["https://github.com/ahmedfarag18", "https://www.facebook.com/", "https://www.instagram.com/", "https://www.linkedin.com/"]} name="ahmed saadawy" role="Odoo Developer" description={"Ahmed is a Odoo Developer have one year of experiences"} />
+                        <TeamMember img={member4} links={["https://github.com/ahmedfarag18", "https://www.facebook.com/", "https://www.instagram.com/", "https://www.linkedin.com/"]} name="Hussein Ashraf" role="UI/UX Designer" description={"Hussien is a UI/UX Designer and writer have 1 year experiences in design"} />
                     </div>
                 </div>
             </section>

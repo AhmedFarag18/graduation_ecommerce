@@ -10,6 +10,7 @@ import "../assets/css/mainslider.css";
 import sliderImg1 from "../assets/images/slider/banner-01.jpg";
 import sliderImg2 from "../assets/images/slider/banner-02.jpg";
 import sliderImg3 from "../assets/images/slider/banner-03.jpg";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const Slider = () => {
 
@@ -47,7 +48,7 @@ const Slider = () => {
                         return (
                             <SwiperSlide className="flex justify-center items-center w-full h-full pt-4" key={swiperItem.id}>
                                 <div className="row">
-                                    <img className="img-fluid md:rounded-lg" src={swiperItem.img} alt={`"slider ${swiperItem.id}`} />
+                                    <LazyLoadImage className="img-fluid md:rounded-lg" src={swiperItem.img} alt={`"slider ${swiperItem.id}`} />
                                 </div>
                             </SwiperSlide>
                         )

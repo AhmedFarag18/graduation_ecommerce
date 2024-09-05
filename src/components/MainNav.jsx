@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import logo from "../assets/logo-white.png"
 import NavbarSearchHook from '../redux/NavbarSearchHook';
 import { subTotal } from '../redux/slices/cart-slice';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function MainNav() {
     const [isOpen, toggleSidebar] = useState(true);
@@ -23,7 +24,7 @@ function MainNav() {
                     <div className='flex items-center  cursor-auto md:flex-grow'>
                         <Link to="/">
                             {/* <span className="logo_icon flex justify-center items-center gap-1 self-center text-4xl font-bold whitespace-nowrap text-main-color cursor-pointer"> <FaOpencart className='inline-block text-3xl' /> Nova.</span> */}
-                            <img src={logo} className='w-36 select-none' alt='logo' />
+                            <LazyLoadImage src={logo} className='w-36 select-none' alt='logo' />
                         </Link>
                     </div>
                     <div className="flex md:hidden">

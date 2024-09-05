@@ -1,7 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Toast } from "../../components/Toast";
 import { redirect } from "react-router-dom";
-import Swal from "sweetalert2";
 import { toast } from "react-hot-toast";
 import { API_URL } from "../../App";
 
@@ -26,7 +24,8 @@ const authSlice = createSlice({
         logout(state, action) {
             state.user = null;
             localStorage.removeItem('user');
-            // navigate('/login');
+            localStorage.removeItem('role');
+            redirect('/login');
             toast.success('You have logged out successfully')
         }
     },

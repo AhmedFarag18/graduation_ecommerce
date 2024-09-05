@@ -25,17 +25,17 @@ const ResetPassword = () => {
     const email = queryParameters.get("Email")
     const token = queryParameters.get("Token")
     // start initializing validation
-    const InitialValues = { password: "", confirmPassword: "" };
+    const InitialValues = { Password: "", ConfirmPassword: "" };
     const validationSchema = Yup.object().shape({
-        password: Yup.string()
+        Password: Yup.string()
             .required("password is required")
             .min(8, 'Password must be at least 8 characters long')
             .matches(/[0-9]/, 'Password requires a number')
             .matches(/[a-z]/, 'Password requires a lowercase letter')
             .matches(/[A-Z]/, 'Password requires an uppercase letter')
             .matches(/[^\w]/, 'Password requires a symbol'),
-        confirmPassword: Yup.string()
-            .oneOf([Yup.ref('password'), null], 'Passwords must match')
+        ConfirmPassword: Yup.string()
+            .oneOf([Yup.ref('Password'), null], 'Passwords must match')
             .required('Confirm password is required'),
     });
 
@@ -87,32 +87,32 @@ const ResetPassword = () => {
                                         <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900">New Password</label>
                                         <div className='relative'>
                                             <input type={showPassword ? 'text' : 'password'}
-                                                value={values.password}
+                                                value={values.Password}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
-                                                name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:ring-1 " />
+                                                name="Password" id="Password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:ring-1 " />
                                             <span onClick={toggleShowPassword} className='absolute cursor-pointer top-1/2 right-2 text-main-color text-xl -translate-x-1/2 -translate-y-1/2 flex' >
                                                 {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
                                             </span>
                                         </div>
-                                        {errors.password && touched.password && (
-                                            <div className="text-red-600 text-sm pl-2">{errors.password}</div>
+                                        {errors.Password && touched.Password && (
+                                            <div className="text-red-600 text-sm pl-2">{errors.Password}</div>
                                         )}
                                     </div>
                                     <div>
                                         <label htmlFor="confirmPassword" className="block mb-2 text-sm font-medium text-gray-900">Confirm password</label>
                                         <div className='relative'>
                                             <input type={showConfirmPassword ? 'text' : 'password'}
-                                                value={values.confirmPassword}
+                                                value={values.ConfirmPassword}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
-                                                name="confirmPassword" id="confirmPassword" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:ring-1 " />
+                                                name="ConfirmPassword" id="ConfirmPassword" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:ring-1 " />
                                             <span onClick={toggleShowConfirmPassword} className='absolute cursor-pointer top-1/2 right-2 text-main-color text-xl -translate-x-1/2 -translate-y-1/2 flex' >
                                                 {showConfirmPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
                                             </span>
                                         </div>
-                                        {errors.confirmPassword && touched.confirmPassword && (
-                                            <div className="text-red-600 text-sm pl-2">{errors.confirmPassword}</div>
+                                        {errors.ConfirmPassword && touched.ConfirmPassword && (
+                                            <div className="text-red-600 text-sm pl-2">{errors.ConfirmPassword}</div>
                                         )}
                                     </div>
                                     <button type="submit" disabled={isSubmitting} className="w-full text-white bg-main-color hover:bg-main-color font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Reset password</button>

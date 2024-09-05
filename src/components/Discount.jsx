@@ -1,5 +1,6 @@
 import React from 'react'
 import discount from "../assets/images/discount.png";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 function Discount() {
     return (
         <section className="discount md:py-24 p-10">
@@ -22,7 +23,7 @@ function Discount() {
                     </div>
                     <div className="card-image w-auto select-none">
                         <div className="image-wrapper w-full md:-mt-20">
-                            <img src={discount} className="w-full max-md:max-w-sm" alt='discount' />
+                            <LazyLoadImage src={discount} className="w-full max-md:max-w-sm" alt='discount' />
                         </div>
                     </div>
                 </div>

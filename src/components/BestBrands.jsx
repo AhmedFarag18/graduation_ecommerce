@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { API_URL } from '../App';
 import { BsBoxArrowUpRight } from 'react-icons/bs';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const BestBrands = () => {
 
@@ -29,7 +30,7 @@ const BestBrands = () => {
                                 <Link to={`/brand/${item.id}?name=${item.name}`} className="brand_item bg-white" key={item.id}>
                                     <div className="flex gap-3 py-5 justify-center items-center border border-white hover:border-main-color rounded transition cursor-pointer" key={item.id}>
                                         <div className="h-24 w-24 rounded-full border flex justify-center items-center border-neutral-300 p-2 overflow-hidden">
-                                            <img src={item.pictureUrl} alt={item.name} className="" />
+                                            <LazyLoadImage src={item.pictureUrl} alt={item.name} className="" />
                                         </div>
                                         <div className='flex gap-2 flex-col'>
                                             <h5 className="brand_item-name font-bold capitalize text-main-color">{item.name}</h5>

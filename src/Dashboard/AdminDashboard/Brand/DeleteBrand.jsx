@@ -5,6 +5,7 @@ import SideNav from '../SideNav';
 import axios from 'axios';
 import { API_URL } from '../../../App';
 import { useSelector } from 'react-redux';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const DeleteBrand = () => {
     const authUser = useSelector(x => x.auth.user);
@@ -80,7 +81,7 @@ const DeleteBrand = () => {
                                 <div value={brand.name} className="focus:outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg select-none block w-full p-2.5 " >{brand.name}</div>
                             </div>
                             <div className='flex justify-between gap-5 col-span-2 border w-fit'>
-                                <img src={brand.pictureUrl} alt={brand.name} className='w-28 h-28' />
+                                <LazyLoadImage src={brand.pictureUrl} alt={brand.name} className='w-28 h-28' />
                             </div>
                             <div className="focus:outline-none flex items-center space-x-4">
                                 <button type="submit" className="text-white bg-red-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">

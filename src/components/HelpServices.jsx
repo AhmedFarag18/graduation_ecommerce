@@ -2,6 +2,7 @@ import React from 'react'
 import img1 from "../assets/images/help/faq.png"
 import img2 from "../assets/images/help/online_payment.png"
 import img3 from "../assets/images/help/home_delivery.png"
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 const HelpServices = () => {
     const helpData = [
         { id: 1, img: img1, title: "Frequently asked questions", desc: "Updates on safe Shopping in our Stores" },
@@ -22,7 +23,7 @@ const HelpServices = () => {
                                         <p className='text-base'>{item.desc}</p>
                                     </div>
                                     <div className='image overflow-hidden rounded-b-lg'>
-                                        <img src={item.img} alt={`img-${item.title}`} className='rounded-b-lg w-full hover:scale-110 transition duration-300' />
+                                        <LazyLoadImage src={item.img} alt={`img-${item.title}`} className='rounded-b-lg w-full hover:scale-110 transition duration-300' />
                                     </div>
                                 </div>)
                         })

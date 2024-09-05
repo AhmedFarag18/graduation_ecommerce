@@ -4,6 +4,7 @@ import SideNav from '../SideNav';
 import { Link } from 'react-router-dom';
 import { BiEdit } from 'react-icons/bi';
 import { MdDelete } from 'react-icons/md';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const ShowAllBrands = () => {
     const [brands, setBrands] = useState();
@@ -63,7 +64,7 @@ const ShowAllBrands = () => {
                                                                 <div className="text-base font-semibold text-gray-900 ">{item.name}</div>
                                                             </td>
                                                             <td className="p-4 text-base font-medium text-gray-900 whitespace-nowrap ">
-                                                                <img src={item.pictureUrl} alt="product image" className='h-24' />
+                                                                <LazyLoadImage src={item.pictureUrl} alt="product image" className='h-24' />
                                                             </td>
                                                             <td className="p-4 space-x-2 whitespace-nowrap">
                                                                 <Link to={`/dashboard/editbrand/${item.id}`} id="updateProductButton" className="inline-flex gap-1 items-center px-3 py-2 text-white rounded-lg bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:ring-indigo-300 ">

@@ -37,21 +37,11 @@ const PaymentForm = ({ setOpenTab }) => {
 
     return (
         <form>
-            {/* <AddressElement
-                options={{
-                    mode: "shipping",
-                    defaultValues: {
-                        name: 'Jane Doe',
-                    }
-                }}
-                className='my-4'
-            /> */}
             <PaymentElement />
             <button type='submit' disabled={!stripe}
                 onClick={(e) => {
                     handleSubmit()
                     dispatch(clearCart())
-                    localStorage.removeItem('cart_id')
                     e.preventDefault()
                 }}
                 className='text-base uppercase p-4 my-5 rounded flex gap-2 justify-center items-center leading-normal  bg-main-color text-white'>Pay</button>

@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { API_URL } from '../../../App';
 import upload from "../../../assets/images/upload.png";
 import { useSelector } from 'react-redux';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 
 function AddType() {
@@ -80,7 +81,7 @@ function AddType() {
                                     <label htmlFor="image" className="focus:outline-none block mb-2 text-sm font-medium text-gray-900">type Image</label>
                                     <input onChange={handleFileChange} type="file" name="image" id="image" className="focus:outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 " />
                                 </div>
-                                <img src={imageSrc ? imageSrc : upload} className='w-28' alt='image' />
+                                <LazyLoadImage src={imageSrc ? imageSrc : upload} className='w-28' alt='image' />
                             </div>
                             <div className="focus:outline-none flex items-center space-x-4">
                                 <button type="submit" className="text-white bg-main-color focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">

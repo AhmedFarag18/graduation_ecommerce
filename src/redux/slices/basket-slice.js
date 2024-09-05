@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { API_URL } from "../../App";
 import cuid from "cuid";
-import { changeDeliveryMethodId } from "./order-slice";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 
@@ -20,6 +19,7 @@ export const extraCreateOrderAction = createAsyncThunk("basketSlice/createNewOrd
         body: JSON.stringify(data)
     })
     const finaldata = await res.json()
+    console.log(finaldata, "order action")
     return finaldata;
 })
 export const extraCreatePaymentIntent = createAsyncThunk("basketSlice/createPaymentIntent", async () => {
@@ -35,6 +35,7 @@ export const extraCreatePaymentIntent = createAsyncThunk("basketSlice/createPaym
     })
     const finaldata = await res.json();
     clientSecret = finaldata.clientSecret;
+    console.log(finaldata, "with secret");
     return finaldata;
 })
 
@@ -54,7 +55,9 @@ const basketSlice = createSlice({
             createNewBasket(state);
         },
         basketDeliveryMethodId: (state, action) => {
-            state.deliveryMethodId = changeDeliveryMethodId()
+            state.deliveryMethodId = action.payload;
+            console.log("deleviry action ", state.deliveryMethodId)
+            updateBasket(state)
         },
         changeShippingPrice: (state, action) => {
             state.shippingPrice = action.payload;
@@ -67,14 +70,14 @@ const basketSlice = createSlice({
             if (order.statusCode === 401) {
                 toast.error('order faild')
             } else {
-                toast.success('order success')
+                // toast.success('order success')
                 console.log(order);
             }
         })
     }
 })
 
-export const { createBasket, setShippingPrice, changeShippingPrice } = basketSlice.actions;
+export const { basketDeliveryMethodId, createBasket, setShippingPrice, changeShippingPrice } = basketSlice.actions;
 export default basketSlice.reducer
 
 
@@ -89,6 +92,7 @@ export function createNewBasket(state) {
         "clientSecret": state.clientSecret,
         "shippingPrice": state.shippingPrice,
     }
+    console.log("add new ", data)
     axios.post(`${API_URL}/Basket`, data,
         {
             headers: {
@@ -107,6 +111,7 @@ export function updateBasket(state) {
         "clientSecret": state.clientSecret,
         "shippingPrice": state.shippingPrice,
     }
+    console.log("update basket ", data)
     axios.post(`${API_URL}/Basket`, data,
         {
             headers: {

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 export default function HeaderStats() {
     const [users, setUsers] = useState([]);
+    const [orders, setOrders] = useState([]);
     const dispatch = useDispatch();
     const products = useSelector((state) => state.products);
     const authUser = useSelector(state => state.auth.user);
@@ -23,6 +24,18 @@ export default function HeaderStats() {
                 setUsers(data);
             })
         dispatch(getAllProducts(""))
+
+        fetch(`${API_URL}/DashboardOrder`, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${authUser.token}`
+            }
+        })
+            .then((res) => res.json())
+            .then(data => {
+                setOrders(data)
+            })
+
     }, [])
 
     return (
@@ -54,7 +67,7 @@ export default function HeaderStats() {
                             <div className="w-full lg:w-6/12 xl:w-4/12 px-4 max-sm:p-2">
                                 <CardStats
                                     statSubtitle="Total Orders"
-                                    statTitle="924"
+                                    statTitle={orders.length}
                                     statIconName={<BsCart3 />}
                                     statIconColor="bg-pink-500"
                                     statDescripiron="Since last month"

@@ -20,8 +20,14 @@ const cartSlice = createSlice({
                 const itemToAdd = mapProductItemToBasketItem(action.payload);
                 state.basketItems.push(itemToAdd);
             }
+
             localStorage.setItem('cart', JSON.stringify(state.basketItems));
-            updateBasket(state);
+            if (localStorage.getItem('cart_id')) {
+                updateBasket(state);
+            } else {
+                createNewBasket(state)
+                console.log("Don't have any basket");
+            }
             toast.success('product added to cart');
         },
         getCart: (state, action) => {

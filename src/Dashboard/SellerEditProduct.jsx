@@ -1,17 +1,16 @@
 import React, { useRef, useState } from 'react'
 import axios from 'axios';
 import { useEffect } from 'react';
-import SideNav from '../SideNav';
 import Swal from 'sweetalert2';
-import { API_URL } from '../../../App';
+import { API_URL } from '../App';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-hot-toast';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-function EditProduct() {
+function SellerEditProduct() {
     const { productId } = useParams();
     const navigate = useNavigate();
-    const [open, setOpen] = useState(true);
     const authUser = useSelector(x => x.auth.user);
 
     const [name, setName] = useState("");
@@ -23,6 +22,7 @@ function EditProduct() {
     const [selectedBrand, setSelectedBrand] = useState("");
     const [selectedBrandId, setSelectedBrandId] = useState(1);
     const [available, setAvailable] = useState(false);
+    const [productOwner, setProductOwner] = useState(false);
     const [multipleImages, setMultipleImages] = useState([]);
 
     const [imageSrc, setImageSrc] = useState(null);
@@ -59,6 +59,7 @@ function EditProduct() {
                 setSelectedBrandId(product.productBrandId)
                 setMultipleImages(product.images);
                 setAvailable(product.available)
+                setProductOwner(product.productOwner)
             })
     }, [productId])
 
@@ -114,6 +115,8 @@ function EditProduct() {
         formData.append("ProductBrandId", selectedBrandId)
         formData.append("ProductTypeId", selectedTypeId)
         formData.append("available", available)
+        formData.append("productOwner", productOwner)
+        console.log(productOwner)
 
         for (let i = 0; i < multipleFiles.length; i++) {
             formData.append('ImagesUrl', multipleFiles[i], multipleFiles[i].name);
@@ -121,9 +124,9 @@ function EditProduct() {
 
         try {
             if (!name || !selectedBrand || !selectedType || !description || !price) {
-                alert("please add all data")
+                toast.error("please add all data")
             } else {
-                const res = await axios.post(`${API_URL}/DashboardProduct/editproduct/${productId}`,
+                const res = await axios.post(`${API_URL}/DashboardSeller/editproduct/${productId}`,
                     formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
@@ -138,7 +141,7 @@ function EditProduct() {
                         timer: 2000
                     })
                     // navigate to all products
-                    navigate("/dashboard/getproducts")
+                    navigate(`/dashboard/profile?user=${authUser.email}`)
                 })
             }
         } catch (err) {
@@ -149,7 +152,7 @@ function EditProduct() {
 
     return (
         <div className='flex'>
-            <SideNav open={open} setOpen={setOpen} />
+
             <div className=" details_side focus:outline-none relative p-4 max-w-5xl m-auto h-full md:h-auto">
                 <div className="focus:outline-none relative p-4 bg-white rounded-lg shadow  sm:p-5">
                     <div className="focus:outline-none flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5">
@@ -222,6 +225,10 @@ function EditProduct() {
                                 <label htmlFor="description" className="focus:outline-none block mb-2 text-sm font-medium text-gray-900">Description</label>
                                 <textarea value={description} onChange={(e) => setDescription(e.target.value)} id="description" rows="5" className="focus:outline-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-main-color focus:border-main-color " placeholder="Write a description..."></textarea>
                             </div>
+                            <div>
+                                <label htmlFor="productOwner" className="focus:outline-none block mb-2 text-sm font-medium text-gray-900">productOwner</label>
+                                <input value={productOwner} onChange={(e) => { setProductOwner(e.target.value) }} type="email" name="productOwner" id="productOwner" className="focus:outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 " placeholder="example@gmail.com" />
+                            </div>
                         </div>
                         <div className='mb-4'>
                             <label htmlFor="available" className="focus:outline-none mb-2 text-sm font-medium text-gray-900">Availability</label>
@@ -242,4 +249,4 @@ function EditProduct() {
     )
 }
 
-export default EditProduct
+export default SellerEditProduct

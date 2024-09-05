@@ -4,6 +4,7 @@ import { API_URL } from '../App'
 import CategorySideItem from '../components/CategorySideItem'
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 function Category() {
 
@@ -31,7 +32,7 @@ function Category() {
                                     return (
                                         <Link to={`/category/${item.id}?name=${item.name}`} key={item.id}
                                             className={`image-item p-2 text-2xl hover:bg-gray-100 hover:text-main-color transition duration-300 hover:shadow cursor-pointer flex gap-3 items-center flex-col justify-center rounded-lg`}>
-                                            <img src={item.pictureUrl} alt='image' />
+                                            <LazyLoadImage src={item.pictureUrl} alt='image' />
                                             <span className='text-center'>{item.name}</span>
                                         </Link>
                                     )

@@ -57,6 +57,9 @@ const UserDropdown = () => {
         <Link to={"/dashboard/changepassword"} className={"text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-indigo-700 hover:bg-main-color hover:text-white transition duration-300 rounded-sm"}>
           Change Password
         </Link>
+        <Link to={`/dashboard/profile?user=${authUser.email}`} className={"text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-indigo-700 hover:bg-main-color hover:text-white transition duration-300 rounded-sm"}>
+          Profile
+        </Link>
 
         <a href="" className={" text-sm py-2 px-4 font-normal flex gap-1 items-center justify-between w-full whitespace-nowrap text-white bg-red-600 hover:text-white transition duration-300 rounded-sm"}
           onClick={(e) => {

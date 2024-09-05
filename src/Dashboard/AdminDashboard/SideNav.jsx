@@ -1,6 +1,6 @@
 import { FaOpencart } from "react-icons/fa"
 import { Link } from "react-router-dom";
-import { AiOutlineSetting, AiOutlineBranches, AiOutlineLineChart, AiFillSetting } from "react-icons/ai";
+import { AiOutlineSetting, AiOutlineBranches, AiOutlineLineChart, AiFillSetting, AiOutlineUnorderedList } from "react-icons/ai";
 import { BiCategory, BiMessageSquareAdd, BiUser } from "react-icons/bi";
 import { IoBagHandle } from "react-icons/io5";
 import { VscTypeHierarchySub } from "react-icons/vsc";
@@ -9,8 +9,9 @@ import { RiAdminFill } from "react-icons/ri";
 const SideNav = ({ open, setOpen }) => {
     const Menus = [
         { title: "Dashboard", src: <BiUser className="text-2xl" />, link: "/dashboard" },
-        { title: "All Users", src: <FiUsers className="text-2xl" />, gap: true, link: "/dashboard/users" },
-        { title: "Get products", src: <AiOutlineLineChart className="text-2xl" />, link: "/dashboard/getproducts" },
+        { title: "All Users", src: <FiUsers className="text-2xl" />, link: "/dashboard/users" },
+        { title: "All Orders", src: <AiOutlineUnorderedList className="text-2xl" />, link: "/dashboard/orders" },
+        { title: "Get products", src: <AiOutlineLineChart className="text-2xl" />, gap: true, link: "/dashboard/getproducts" },
         { title: "All Brands", src: <IoBagHandle className="text-2xl" />, link: "/dashboard/allbrands" },
         { title: "All Types", src: <VscTypeHierarchySub className="text-2xl" />, link: "/dashboard/alltypes" },
         { title: "Add Product", src: <BiMessageSquareAdd className="text-2xl" />, gap: true, link: "/dashboard/addproduct" },
@@ -51,7 +52,7 @@ const SideNav = ({ open, setOpen }) => {
                             <li
                                 key={index}
                                 className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
-                                        ${Menu.gap ? "mt-9" : "mt-2"}
+                                        ${Menu.gap ? "mt-6" : "mt-1"}
                                 } `}
                             >
                                 <Link to={Menu.link} className="flex gap-2 items-center">

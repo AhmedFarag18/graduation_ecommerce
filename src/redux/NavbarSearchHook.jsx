@@ -3,6 +3,7 @@ import { API_URL } from '../App';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllProducts } from './slices/products-slice';
 import { useNavigate } from 'react-router-dom';
+import { getAllSellerProducts } from './slices/sellerProducts-slice';
 
 function NavbarSearchHook() {
     const dispatch = useDispatch();
@@ -38,6 +39,7 @@ function NavbarSearchHook() {
     useEffect(() => {
         const debounceSearch = setTimeout(() => {
             dispatch(getAllProducts(`?PageIndex=${currentPage}&PageSize=${pageSize}${`${brandId ? `&BrandId=${brandId}` : ``}`}${`${typeId ? `&TypeId=${typeId}` : ``}`}${`${localStorage.getItem("searchWord") ? `&Search=${localStorage.getItem("searchWord")}` : ``}`}`))
+            dispatch(getAllSellerProducts(`?PageIndex=${currentPage}&PageSize=${pageSize}${`${brandId ? `&BrandId=${brandId}` : ``}`}${`${typeId ? `&TypeId=${typeId}` : ``}`}${`${localStorage.getItem("searchWord") ? `&Search=${localStorage.getItem("searchWord")}` : ``}`}`))
         }, 1200);
         return () => {
             clearTimeout(debounceSearch);

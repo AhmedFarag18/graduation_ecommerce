@@ -10,6 +10,7 @@ import { getAllProducts } from '../redux/slices/products-slice';
 import { BsSliders } from 'react-icons/bs';
 import { API_URL } from '../App';
 import Loader from '../components/Loader';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function Products() {
     const [showFilters, setShowfilters] = useState(false);
@@ -19,14 +20,14 @@ function Products() {
     const [onChangeSearch, searchWord, currentPage, totalPages, count, setCount, handlePageChange, pageSize, onChangeBrandId, brandId, onChangeTypeId, typeId] = NavbarSearchHook();
     const dispatch = useDispatch();
     const final = useSelector((state) => state.products);
-
     useEffect(() => {
         setSpinner(true)
-
         if (final) {
             setProducts(final.data);
             setCount(final.count);
             setSpinner(false)
+        } else {
+            setSpinner(true)
         }
     }, [final])
 
@@ -53,7 +54,9 @@ function Products() {
             <Navbar />
             {/* start filter */}
             <div className=" md:py-12 lg:px-20 md:px-6 py-9 px-4">
-                <p className=" text-sm leading-3 text-gray-600 font-normal mb-2">Home / Products</p>
+                <p className=" text-sm leading-3 text-gray-600 font-normal mb-2">
+                    <Link to="/">Home</Link> / Products
+                </p>
                 <div className=" flex justify-between items-center mb-4">
                     <h2 className=" lg:text-4xl text-3xl lg:leading-9 leading-7 text-gray-800 font-semibold">All Products</h2>
                     {/*  filters Button (md and plus Screen) */}
@@ -114,30 +117,38 @@ function Products() {
                 <div className='w-full'>
                     <div className='products_item flex flex-wrap items-center justify-center'>
                         {
-                            final.count === 0 ? <h1 className='text-main-color flex gap-5 w-full text-center p-20 justify-center items-center text-4xl'>Not matched any data</h1>
-                                : products ? products.map((item) => {
-                                    return (
-                                        <div className='flex w-full sm:w-1/2 md:w-1/3 py-5 pr-1 select-none' key={item.id}>
-                                            <div className="card_item w-full p-6 flex flex-col rounded border hover:shadow-xl transition">
-                                                <Link to={`/details/${item.id}?search=${item.name.replace(" ", '')}`} className="cursor-pointer">
-                                                    <img src={item.pictureUrl} alt={`image-${item.name}`} className="h-96 mx-auto" />
-                                                    <span className='block my-2 text-sm text-white rounded-md w-max py-1 px-2 bg-main-color'>{item.productBrand}</span>
-                                                    <h4 className="card_item-name font-medium text-xl my-1">{item.name}</h4>
+                            spinner ?
+                                <Loader />
+                                :
+                                count == 0 ?
+                                    <h1 className='text-main-color flex gap-5 w-full text-center p-20 justify-center items-center text-4xl'>Not matched any data</h1>
+                                    :
+                                    products ? products.map((item) => {
+                                        return (
+                                            <div className='flex w-full sm:w-1/2 md:w-1/3 py-5 pr-1 select-none' key={item.id}>
+                                                <div className="card_item w-full p-6 flex flex-col rounded border hover:shadow-xl transition">
+                                                    <LazyLoadImage src={item.pictureUrl} alt={`image-${item.name}`} className="h-96 mx-auto" />
+                                                    <div className='flex justify-between items-center'>
+                                                        <span className='block my-2 text-sm text-main-color rounded-md w-max py-1 px-2 bg-gray-200'>{item.productBrand}</span>
+                                                        <Link to={`/profile?user=${item.productOwner}`} className="cursor-pointer">
+                                                            <span className={`w-8 h-8 text-sm text-white rounded-full py-1 px-2 ${item.productOwner === "nova" ? "bg-main-color" : "bg-indigo-500"} flex justify-center items-center`}>{item.productOwner ? item.productOwner.slice(0, 1).toUpperCase() : ""}</span>
+                                                        </Link>
+                                                    </div>
+                                                    <Link to={`/details/${item.id}?search=${item.name.replace(" ", '')}`} className="cursor-pointer">
+                                                        <h4 className="card_item-name font-medium text-xl my-1">{item.name}</h4>
+                                                    </Link>
                                                     <p className='card_item-desc text-sm my-2'>{item.description}</p>
-                                                </Link>
-                                                <div>
-                                                    <span className='inline-block w-max text-lg font-medium'>{item.price}.00 </span>
-                                                    <span className='text-sm'> USD</span>
-                                                </div>
-                                                <div className='flex gap-2'>
-                                                    <Link to={`/details/${item.id}?search=${item.name.replace(" ", '')}`} className='cursor-pointer rounded-md px-5 p-2 bg-main-color mt-4 text-white text-sm capitalize text-center'>View Details</Link>
+                                                    <div>
+                                                        <span className='inline-block w-max text-lg font-medium'>{item.price} </span>
+                                                        <span className='text-sm'> USD</span>
+                                                    </div>
+                                                    <div className='flex gap-2'>
+                                                        <Link to={`/details/${item.id}?search=${item.name.replace(" ", '')}`} className='cursor-pointer rounded-md px-5 p-2 bg-main-color mt-4 text-white text-sm capitalize text-center'>View Details</Link>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    )
-                                })
-                                    :
-                                    <Loader />
+                                        )
+                                    }) : <Loader />
                         }
                     </div>
 

@@ -1,19 +1,17 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { useEffect } from 'react';
-import SideNav from '../SideNav';
 import Swal from 'sweetalert2';
-import { API_URL } from '../../../App';
-import upload from "../../../assets/images/upload.png";
+import upload from "../assets/images/upload.png";
 import * as Yup from 'yup';
 import { Formik } from 'formik/dist';
 import { useSelector } from 'react-redux';
+import { API_URL } from '../App';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
-function AddProduct() {
+function SellerAddProduct() {
     const authUser = useSelector(x => x.auth.user);
-    const [open, setOpen] = useState(true);
     const navigate = useNavigate();
 
     const [file, setFile] = useState(null);
@@ -24,13 +22,14 @@ function AddProduct() {
     const [imagesSrc, setImagesSrc] = useState(null);
 
     // start initializing validation
-    const InitialValues = { name: "", brand: "", type: "", price: "", description: "" };
+    const InitialValues = { name: "", brand: "", type: "", price: "", description: "", productOwner: "" };
     const validationSchema = Yup.object().shape({
         name: Yup.string().required("Name is Required"),
         brand: Yup.string().required("brand is Required."),
         type: Yup.string().required("type is Required."),
         price: Yup.string().required("price is Required."),
         description: Yup.string().required("description is Required."),
+        productOwner: Yup.string().email().required("Email is Required"),
     });
 
     const handleFileChange = (e) => {
@@ -98,12 +97,14 @@ function AddProduct() {
         formData.append("ProductTypeId", values.type)
         formData.append("available", available)
         formData.append("rating", 0)
+        formData.append("productOwner", values.productOwner)
 
         for (let i = 0; i < multipleImages.length; i++) {
             formData.append('ImagesUrl', multipleImages[i], multipleImages[i].name);
         }
+        console.log(formData, values);
         try {
-            const res = await axios.post(`${API_URL}/DashboardProduct/addproduct`,
+            const res = await axios.post(`${API_URL}/DashboardSeller/addproduct`,
                 formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -119,7 +120,8 @@ function AddProduct() {
                 })
             })
             setSubmitting(false);
-            navigate("/dashboard/getproducts")
+            navigate(`/dashboard/profile?user=${authUser.email}`)
+
         } catch (err) {
             console.log(err);
         }
@@ -128,7 +130,7 @@ function AddProduct() {
 
     return (
         <div className='flex'>
-            <SideNav open={open} setOpen={setOpen} />
+
             <div className=" details_side focus:outline-none relative p-4 max-w-5xl m-auto h-full md:h-auto">
                 <div className="focus:outline-none relative p-4 bg-white rounded-lg shadow  sm:p-5">
                     <div className="focus:outline-none flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5">
@@ -230,7 +232,14 @@ function AddProduct() {
                                             )}
                                         </div>
                                         <div>
-                                            <label htmlFor="available" className="focus:outline-none mb-2 text-sm font-medium text-gray-900">Availability</label>
+                                            <label htmlFor="productOwner" className="focus:outline-none block mb-2 text-sm font-medium text-gray-900">Product Owner</label>
+                                            <input value={values.productOwner} onBlur={handleBlur} onChange={handleChange} type="email" name="productOwner" id="productOwner" className="focus:outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 " placeholder="john@example.com" />
+                                            {errors.productOwner && touched.productOwner && (
+                                                <div className="text-red-600 text-sm pl-2">{errors.productOwner}</div>
+                                            )}
+                                        </div>
+                                        <div>
+                                            <label htmlFor="available" className="focus:outline-none block mb-2 text-sm font-medium text-gray-900">Availability</label>
                                             <input value={available}
                                                 onBlur={handleBlur} onChange={(e) => { (e.target.checked) ? setAvailable(true) : setAvailable(false) }}
                                                 type="checkbox" name="available"
@@ -252,4 +261,4 @@ function AddProduct() {
     )
 }
 
-export default AddProduct
+export default SellerAddProduct

@@ -18,6 +18,7 @@ function SignUp() {
         setShowPassword(!showPassword);
     };
     const [emailExists, setEmailExists] = useState(false);
+    const [phoneNumber, setPhoneNumber] = useState(false);
 
     // start initializing validation
     const InitialValues = {
@@ -27,6 +28,7 @@ function SignUp() {
         displayName: Yup.string().required(),
         firstName: Yup.string().required(),
         lastName: Yup.string().required(),
+        role: Yup.string().required(),
         phoneNumber: Yup.string().matches(/^[0-9]{11}$/, 'phoneNumber must be 11 number').required(),
         email: Yup.string().email().required("Email is Required"),
         password: Yup.string()
@@ -42,7 +44,6 @@ function SignUp() {
     });
 
 
-
     const handleSubmit = async (values, { setSubmitting }) => {
         // check if the email address is already existing
         fetch(`${API_URL}/Account/emailexists?email=${values.email}`)
@@ -50,11 +51,21 @@ function SignUp() {
             .then((data) => {
                 setEmailExists(data);
             })
+        // check if phone exits
+        fetch(`${API_URL}/DashboardUser/phoneNumber?phoneNumber=${values.phoneNumber}`)
+            .then(res => res.json())
+            .then((data) => {
+                setPhoneNumber(data);
+                console.log(data)
+            })
 
         if (emailExists) {
             toast.error("email already exists");
+        } else if (phoneNumber.phoneNumber == values.phoneNumber) {
+            toast.error("Phone Number already exists");
         } else {
             const data = values
+            console.log(data);
             await fetch(`${API_URL}/Account/register`, {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
@@ -97,7 +108,7 @@ function SignUp() {
                                     handleSubmit
                                 } = props;
                                 return (
-                                    <form onSubmit={handleSubmit} method='POST' className='select-none bg-white rounded-md shadow-md p-10  m-auto w-11/12 lg:w-5/12' >
+                                    <form onSubmit={handleSubmit} method='POST' className='select-none bg-white rounded-md shadow-md p-10  m-auto w-11/12 lg:w-7/12' >
                                         <div className='inputs flex flex-wrap gap-x-5'>
                                             <div className='flex flex-col'>
                                                 <InputCom type="text" label="Display Name"
@@ -127,7 +138,7 @@ function SignUp() {
                                                     <div className="text-red-600 text-xs pl-2">{errors.email}</div>
                                                 )}
                                             </div>
-                                            <div className='my-4 flex flex-col gap-1'>
+                                            <div className='my-2 flex flex-col gap-1'>
                                                 <label className="font-medium text-base text-neutral-800 after:content-['*'] after:ml-0.5 after:text-red-500">Password</label>
                                                 <div className='relative'>
                                                     <input type={showPassword ? 'text' : 'password'} onChange={handleChange}
@@ -140,6 +151,17 @@ function SignUp() {
                                                     <div className="text-red-600 text-xs pl-2">{errors.password}</div>
                                                 )}
                                             </div>
+                                            {/* start select role */}
+                                            <div className='flex flex-col'>
+                                                <div className='my-2 flex flex-col gap-1'>
+                                                    <label className="font-medium text-base text-neutral-800 after:content-['*'] after:ml-0.5 after:text-red-500">select role</label>
+                                                    <select value={values.role} onBlur={handleBlur} onChange={handleChange} id="role" name='role' className='p-2 pl-3 text-neutral-600 font-normal w-full rounded-md focus:outline-none focus:ring-1 border'>
+                                                        <option value="seller">seller</option>
+                                                        <option value="buyer">buyer</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
                                             <div className='flex flex-col'>
                                                 <InputCom type="text" label="Phone"
                                                     onBlur={handleBlur} value={values.phoneNumber} placeholder="+201292823837" handler={handleChange} id="phoneNumber" />

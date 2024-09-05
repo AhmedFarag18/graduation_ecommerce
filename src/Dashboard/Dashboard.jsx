@@ -1,21 +1,19 @@
 import jwt_decode from 'jwt-decode';
 import UserDashboard from './UserDashboard';
 import AdminDashboard from './AdminDashboard';
+import { Navigate } from 'react-router-dom';
+import ProtectedRoute from '../Auth/ProtectedRoute';
 
 const Dashboard = () => {
-    const token = JSON.parse(localStorage.getItem('user')).token; // Retrieve JWT token from local storage
-    const decodedToken = jwt_decode(token, { complete: true });
+    const [isUser, isAdmin, userData, websiteRole] = ProtectedRoute();
 
-    // Get the admin role claim value
-    const adminRole = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
-
-    if (adminRole === 'admin') {
+    if (isAdmin) {
         return (
             <div>
                 <AdminDashboard />
             </div>
         );
-    } else {
+    } else if (isUser) {
         return (
             <div>
                 <UserDashboard />

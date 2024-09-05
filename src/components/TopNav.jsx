@@ -44,16 +44,22 @@ function TopNav() {
                                     </div>
                                     <ul className="py-2 text-sm text-gray-700" aria-labelledby="avatarButton">
                                         <li>
-                                            <Link to="/dashboard" href="#" className="block px-4 py-2 hover:bg-gray-100">Dashboard</Link>
+                                            <Link to="/" className={"text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-indigo-700 hover:bg-main-color hover:text-white transition duration-300 rounded-sm"}>Home</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/dashboard" className={"text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-indigo-700 hover:bg-main-color hover:text-white transition duration-300 rounded-sm"}>Dashboard</Link>
+                                        </li>
+                                        <li>
+                                            <Link to={`/dashboard/profile?user=${authUser.email}`} className={"text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-indigo-700 hover:bg-main-color hover:text-white transition duration-300 rounded-sm"}>Profile</Link>
                                         </li>
                                     </ul>
-                                    <div className="py-1">
+                                    <div className="pt-1">
                                         <Link
                                             onClick={() => {
                                                 dispatch(authActions.logout())
                                                 dispatch(clearCart());
                                             }}
-                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ">
+                                            className={"text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-red-500 hover:bg-red-600 hover:text-white transition duration-300  rounded-b-lg"}>
                                             Sign out
                                         </Link>
                                     </div>

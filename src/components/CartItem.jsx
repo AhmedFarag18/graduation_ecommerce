@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { MdDelete } from 'react-icons/md'
 import { deleteFromCart } from '../redux/slices/cart-slice'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 function CartItem({ product, onUpdate }) {
     const dispatch = useDispatch()
@@ -14,7 +15,7 @@ function CartItem({ product, onUpdate }) {
     return (
         <div className='p-3 mb-3 flex justify-between items-center w-full'>
             <div className='flex p-2 gap-6 items-center w-6/12'>
-                <img src={product.pictureUrl} width="80" alt={`image-${product.productName}`} />
+                <LazyLoadImage src={product.pictureUrl} width="80" alt={`image-${product.productName}`} />
                 <div className='flex-col flex gap-2'>
                     <span className='text-base font-semibold'>{product.productName}</span>
                     <span className='text-sm bg-gray-200 p-2 w-fit text-main-color rounded'>{product.type}</span>

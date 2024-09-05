@@ -6,16 +6,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from "react-router-dom";
 import { API_URL } from '../App';
 import { addToCart } from '../redux/slices/cart-slice';
-import { AiFillStar } from 'react-icons/ai';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { Toast } from './Toast';
-import toast, { Toaster } from 'react-hot-toast';
-import { comment } from 'postcss';
+import toast from 'react-hot-toast';
+import ReviewModal from './ReviewModal';
+import { IoClose } from 'react-icons/io5';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function DetailsProduct({ productID }) {
-    const [rating, setRating] = useState(0);
-    const [hover, setHover] = useState(0);
+
+    const [show, setshow_modal_XVII] = useState(false);
 
     let navigate = useNavigate();
     const dispatch = useDispatch();
@@ -80,35 +80,7 @@ function DetailsProduct({ productID }) {
         }
     }
 
-    const addRating = async () => {
-        const formRating = new FormData();
-        formRating.append('productId', productID);
-        formRating.append('Value', rating);
-        formRating.append('buyerEmail', authUser.email);
-        console.log({
-            productId: productID,
-            Value: rating,
 
-        })
-        try {
-            if (rating !== "") {
-                await axios.post(`${API_URL}/Rating/${productID}`,
-                    formRating, {
-                    headers: {
-                        'Authorization': `Bearer ${authUser.token}`
-                    },
-                }).then(() => {
-                    toast.success('Rating added successfully');
-
-                    // setRating(0);
-                })
-            } else {
-                toast.error("Rating is empty");
-            }
-        } catch (err) {
-            console.log(err);
-        }
-    }
 
     // make zoom for image whn hover
     const handleMouseMove = (e) => {
@@ -136,26 +108,26 @@ function DetailsProduct({ productID }) {
         })
     }
     return (
-        <div className='product_details py-10'>
+        <div className='product_details relative py-10'>
             <div className='container'>
                 <Link onClick={() => navigate(-1)} className="text-white bg-main-color hover:bg-indigo-700 inline-block  font-medium rounded text-sm px-5 py-2.5">Back</Link>
                 <div className='product-details flex justify-between flex-col md:flex-row pt-5'>
                     <div className='product-image w-full  md:w-1/2 py-5 flex gap-2 select-none rounded p-5'>
                         <div className='all_images w-2/12 flex flex-col gap-3'>
                             <div className="border p-1 rounded cursor-pointer ">
-                                <img src={product.pictureUrl} alt={`image-${product.name}`} onClick={(e) => { changeMainImg(e) }}></img>
+                                <LazyLoadImage src={product.pictureUrl} alt={`image-${product.name}`} onClick={(e) => { changeMainImg(e) }}></LazyLoadImage>
                             </div>
                             {
                                 product.images && product.images.map((img, idx) => {
                                     return <div key={idx} className="border p-1 rounded cursor-pointer">
-                                        <img src={img.name} alt={idx} onClick={(e) => { changeMainImg(e) }}></img>
+                                        <LazyLoadImage src={img.name} alt={idx} onClick={(e) => { changeMainImg(e) }}></LazyLoadImage>
                                     </div>
                                 })
                             }
                         </div>
                         <div className='relative w-full overflow-hidden bg-gray-50'>
                             <figure className='main_img' onMouseMove={handleMouseMove} style={zoom} >
-                                <img src={product.pictureUrl} className="w-full mb-10 h-full" alt={product.name} />
+                                <LazyLoadImage src={product.pictureUrl} className="w-full mb-10 h-full" alt={product.name} />
                             </figure>
                         </div>
                     </div>
@@ -164,6 +136,10 @@ function DetailsProduct({ productID }) {
                         <div className='flex items-center gap-1.5 mt-2 bg-gray-50 shadow-sm rounded py-1 px-3 w-max'>
                             <FaStar className=" text-yellow-400" />
                             <span>{product.rating}</span>
+                        </div>
+                        <div className='mt-6 flex items-center gap-3'>
+                            <b className='text-neutral-800'>Added By </b>
+                            <Link to={`/profile?user=${product.productOwner}`} title={product.productOwner} className='flex justify-center items-center text-neutral-600 bg-gray-200 w-8 h-8 rounded-full cursor-pointer'>{product.productOwner ? product.productOwner.slice(0, 1).toUpperCase() : ""}</Link>
                         </div>
                         <div className='mt-6 flex flex-col'>
                             <b className='text-neutral-800'>Description</b>
@@ -176,42 +152,36 @@ function DetailsProduct({ productID }) {
                         <div className='mt-6 flex items-center'>
                             <span className='font-bold text-xl'>${product.price}</span>
                         </div>
-                        <div className='flex gap-3 mt-6 w-full flex-wrap'>
+                        <div className='flex gap-3 my-6 w-full flex-wrap'>
                             <input type="number" value={qty} onChange={(e) => setQty(e.target.value)} min="1" className='p-2 border focus:outline-none text-neutral-600 rounded' />
                             <button onClick={() => dispatch(addToCart({ ...product, quantity: Number.parseInt(qty) }))} className='flex items-center gap-2 py-2 px-10 bg-main-color hover:bg-indigo-700 text-white rounded group'>
                                 <BsCart className='group-hover:animate-bounce' />
                                 <span> Add to cart</span>
                             </button>
                         </div>
+
+                        {/* start rating component */}
+                        <div className="rating">
+                            <div className={`${show ? "" : "flex"} `}>
+                                <button
+                                    onClick={() => setshow_modal_XVII(true)}
+                                    className="bg- border border-main-color text-gray-800 py-3 px-6 focus:outline-none rounded">
+                                    Rate product
+                                </button>
+                            </div>
+                            {
+                                authUser ?
+                                    <ReviewModal show={show} setshow_modal_XVII={setshow_modal_XVII} productID={productID} email={authUser.email} token={authUser.token} />
+                                    :
+                                    <div className={`${show ? "" : "hidden"} bg-white shadow fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 lg:max-w-[842px] md:max-w-[744px] max-w-[375px] w-full mx-auto lg:px-[109px] md:px-12 px-3 py-20 flex flex-col justify-center items-center`}>
+                                        <IoClose onClick={() => setshow_modal_XVII(false)} className="cursor-pointer absolute right-4 top-4 z-10 text-2xl text-main-color" />
+                                        <p className='text-xl text-center mb-3'>You don't have access to add Rating, Please Sign In!</p>
+                                        <Link to={"/login"} className='flex items-center gap-2 py-2 px-10 bg-main-color hover:bg-indigo-700 text-white rounded'>Log In</Link>
+                                    </div>
+                            }
+                        </div>
                     </div>
                 </div>
-
-                {/* start rating component */}
-                <div className="star-rating">
-                    {[...Array(5)].map((star, index) => {
-                        index += 1;
-                        return (
-                            <button
-                                type="button"
-                                key={index}
-                                className={`bg-transparent border-none ${index <= (hover || rating) ? "text-yellow-600" : "text-black"}`}
-                                onClick={() => setRating(index)}
-                                onMouseEnter={() => setHover(index)}
-                                onMouseLeave={() => setHover(rating)}
-                            >
-                                <span className="star text-4xl">&#9733;</span>
-                            </button>
-                        );
-                    })}
-                    <div>
-                        <button type='submit' onClick={() => addRating()}
-                            className="text-white bg-main-color focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
-                            Add Rating
-                        </button>
-                    </div>
-                </div>
-
-
 
                 <div className='mt-10 p-5'>
                     <div className=' py-6 px-3 mt-5'>
@@ -223,7 +193,6 @@ function DetailsProduct({ productID }) {
                                         <div className='all_comments shadow-md bg-gray-50 mt-5 py-3 pt-0 flex flex-col gap-x-5 gap-y-2' key={comment.id}>
                                             <div className='username items-center flex gap-3 p-2 w-fit m-2 border-b border-b-main-color'>
                                                 <span className='font-bold'>{comment.buyerEmail}</span>
-                                                <span className='flex gap-2 p-1 items-center rounded'>4.7 <AiFillStar className='text-yellow-400' /></span>
                                             </div>
                                             <div className='ml-6 rounded p-2'>{comment.text}</div>
                                         </div>
